@@ -1,4 +1,5 @@
-Core/Src/st7735.o: ../Core/Src/st7735.c \
+Core/User/LCD/DEV_Config.o: ../Core/User/LCD/DEV_Config.c \
+ ../Core/User/LCD/DEV_Config.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -25,8 +26,10 @@ Core/Src/st7735.o: ../Core/Src/st7735.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/st7735.h ../Core/Inc/fonts.h
+ ../Core/Inc/main.h ../Core/User/LCD/LCD.h \
+ ../Core/User/LCD/../Fonts/fonts.h
+
+../Core/User/LCD/DEV_Config.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 
@@ -80,8 +83,8 @@ Core/Src/st7735.o: ../Core/Src/st7735.c \
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
 
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+../Core/Inc/main.h:
 
-../Core/Inc/st7735.h:
+../Core/User/LCD/LCD.h:
 
-../Core/Inc/fonts.h:
+../Core/User/LCD/../Fonts/fonts.h:

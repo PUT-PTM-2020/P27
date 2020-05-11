@@ -19,5 +19,7 @@ OBJCOPY_BIN :=
 SUBDIRS := \
 Core/Src \
 Core/Startup \
+Core/User/Fonts \
+Core/User/LCD \
 Drivers/STM32F4xx_HAL_Driver/Src \
 

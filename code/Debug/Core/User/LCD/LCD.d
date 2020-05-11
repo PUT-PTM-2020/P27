@@ -1,5 +1,5 @@
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o: \
- ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c \
+Core/User/LCD/LCD.o: ../Core/User/LCD/LCD.c ../Core/User/LCD/LCD.h \
+ ../Core/User/LCD/../Fonts/fonts.h ../Core/User/LCD/DEV_Config.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -26,7 +26,13 @@ Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o: \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+ ../Core/Inc/main.h
+
+../Core/User/LCD/LCD.h:
+
+../Core/User/LCD/../Fonts/fonts.h:
+
+../Core/User/LCD/DEV_Config.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 
@@ -80,4 +86,4 @@ Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o: \
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
 
-../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+../Core/Inc/main.h:
