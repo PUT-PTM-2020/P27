@@ -30,7 +30,6 @@
 
 // LED screen
 #include "ST7735S_dev_config.h"
-#include "ST7735S.h"
 #include "Menu.h"
 
 

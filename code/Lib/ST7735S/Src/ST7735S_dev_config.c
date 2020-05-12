@@ -1,6 +1,6 @@
 #include "ST7735S_dev_config.h"
-
 #include "stm32f4xx_hal_spi.h"
+#include "spi.h"
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>

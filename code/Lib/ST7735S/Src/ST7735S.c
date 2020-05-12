@@ -8,11 +8,10 @@
 ***********************************************************************************************************************/
 
 #include "ST7735S.h"
+#include "ST7735S_dev_config.h"
 
 #include <stdlib.h>		//itoa()
 #include <stdio.h>
-
-#include "ST7735S_dev_config.h"
 //#include <string.h>
 
 LCD_DIS sLCD_DIS;

@@ -2,7 +2,6 @@
 #define __ST7735S_H
 
 #include <stdint.h>
-
 #include "fonts.h"
 
 #define	COLOR				uint16_t		//The variable type of the color (unsigned short) 
