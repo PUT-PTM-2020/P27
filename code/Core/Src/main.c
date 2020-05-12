@@ -32,10 +32,8 @@
 #include "ST7735S_dev_config.h"
 #include "Menu.h"
 
-
 // Distance sensor
 #include "vl53l0x_api.h"
-
 
 /* USER CODE END Includes */
 
@@ -55,8 +53,6 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-volatile int stateQ1=0;
-volatile int stateQ2=0;
 
 /* USER CODE BEGIN PV */
 // Distance sensor
@@ -75,6 +71,11 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+uint32_t refSpadCount;
+uint8_t isApertureSpads;
+uint8_t VhvSettings;
+uint8_t PhaseCal;
+uint16_t milimeters = 0;
 
 void init() {
 	// Initialize
@@ -102,10 +103,6 @@ void init() {
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	uint32_t refSpadCount;
-	uint8_t isApertureSpads;
-	uint8_t VhvSettings;
-	uint8_t PhaseCal;
 
   /* USER CODE END 1 */
 
@@ -134,10 +131,10 @@ int main(void)
 	Dev->I2cHandle = &hi2c1;
 	Dev->I2cDevAddr = 0x52;
 
-	HAL_GPIO_WritePin(TOF_XSHUT_GPIO_Port, TOF_XSHUT_Pin, GPIO_PIN_RESET); // Disable XSHUT
-	HAL_Delay(20);
-	HAL_GPIO_WritePin(TOF_XSHUT_GPIO_Port, TOF_XSHUT_Pin, GPIO_PIN_SET); // Enable XSHUT
-	HAL_Delay(20);
+	  HAL_GPIO_WritePin(TOF_XSHUT_GPIO_Port, TOF_XSHUT_Pin, GPIO_PIN_RESET); // Disable XSHUT
+	  HAL_Delay(20);
+	  HAL_GPIO_WritePin(TOF_XSHUT_GPIO_Port, TOF_XSHUT_Pin, GPIO_PIN_SET); // Enable XSHUT
+	  HAL_Delay(20);
 
 	//
 	// VL53L0X init for Single Measurement
@@ -149,31 +146,23 @@ int main(void)
 	VL53L0X_StaticInit( Dev );
 	VL53L0X_PerformRefCalibration(Dev, &VhvSettings, &PhaseCal);
 	VL53L0X_PerformRefSpadManagement(Dev, &refSpadCount, &isApertureSpads);
-	VL53L0X_SetDeviceMode(Dev, VL53L0X_DEVICEMODE_SINGLE_RANGING);
+	VL53L0X_SetDeviceMode(Dev, VL53L0X_DEVICEMODE_CONTINUOUS_RANGING);
+	VL53L0X_StartMeasurement(Dev);
 
 	HAL_NVIC_EnableIRQ(EXTI1_IRQn);
-
-	// Enable/Disable Sigma and Signal check
-	VL53L0X_SetLimitCheckEnable(Dev, VL53L0X_CHECKENABLE_SIGMA_FINAL_RANGE, 1);
-	VL53L0X_SetLimitCheckEnable(Dev, VL53L0X_CHECKENABLE_SIGNAL_RATE_FINAL_RANGE, 1);
-	VL53L0X_SetLimitCheckValue(Dev, VL53L0X_CHECKENABLE_SIGNAL_RATE_FINAL_RANGE, (FixPoint1616_t)(0.1*65536));
-	VL53L0X_SetLimitCheckValue(Dev, VL53L0X_CHECKENABLE_SIGMA_FINAL_RANGE, (FixPoint1616_t)(60*65536));
-	VL53L0X_SetMeasurementTimingBudgetMicroSeconds(Dev, 33000);
-	VL53L0X_SetVcselPulsePeriod(Dev, VL53L0X_VCSEL_PERIOD_PRE_RANGE, 18);
-	VL53L0X_SetVcselPulsePeriod(Dev, VL53L0X_VCSEL_PERIOD_FINAL_RANGE, 14);
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  init();
+  //init();
    while (1)
    {
 
 	if(TofDataRead == 1)
 	{
-		uint16_t milimeters = RangingData.RangeMilliMeter;
+		milimeters = RangingData.RangeMilliMeter;
 		TofDataRead = 0;
 	}
 

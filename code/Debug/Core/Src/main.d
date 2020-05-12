@@ -27,9 +27,12 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
+ ../Core/Inc/i2c.h ../Core/Inc/main.h ../Core/Inc/spi.h \
+ ../Core/Inc/gpio.h \
  D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/ST7735S_dev_config.h \
  D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/ST7735S.h \
  D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/fonts.h \
+ ../Core/Inc/Menu.h \
  D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/core/inc/vl53l0x_api.h \
  D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/core/inc/vl53l0x_api_strings.h \
  D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/core/inc/vl53l0x_def.h \
@@ -97,11 +100,21 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
 
+../Core/Inc/i2c.h:
+
+../Core/Inc/main.h:
+
+../Core/Inc/spi.h:
+
+../Core/Inc/gpio.h:
+
 D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/ST7735S_dev_config.h:
 
 D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/ST7735S.h:
 
 D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/fonts.h:
+
+../Core/Inc/Menu.h:
 
 D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/core/inc/vl53l0x_api.h:
 

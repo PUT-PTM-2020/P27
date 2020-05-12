@@ -1,5 +1,4 @@
-Lib/ST7735S/Src/ST7735S_dev_config.o: \
- ../Lib/ST7735S/Src/ST7735S_dev_config.c \
+Core/Src/Menu.o: ../Core/Src/Menu.c \
  D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/ST7735S_dev_config.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
@@ -32,7 +31,7 @@ Lib/ST7735S/Src/ST7735S_dev_config.o: \
  ../Core/Inc/main.h \
  D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/ST7735S.h \
  D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/fonts.h \
- ../Core/Inc/spi.h ../Core/Inc/main.h
+ D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/ST7735S.h
 
 D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/ST7735S_dev_config.h:
 
@@ -98,6 +97,4 @@ D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/ST7735S.h:
 
 D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/fonts.h:
 
-../Core/Inc/spi.h:
-
-../Core/Inc/main.h:
+D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/ST7735S.h:

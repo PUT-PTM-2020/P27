@@ -29,6 +29,7 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
+#include "stm32f4xx_hal.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -60,13 +61,9 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define TOF_EXTI_Pin GPIO_PIN_1
 #define TOF_EXTI_GPIO_Port GPIOA
-#define TOF_XSHUT_Pin GPIO_PIN_10
-#define TOF_XSHUT_GPIO_Port GPIOA
-/* USER CODE BEGIN Private defines */
+#define TOF_EXTI_EXTI_IRQn EXTI1_IRQn
 #define SPI1_SCK_Pin GPIO_PIN_5
 #define SPI1_SCK_GPIO_Port GPIOA
-#define SPI1_MISO_Pin GPIO_PIN_6
-#define SPI1_MISO_GPIO_Port GPIOA
 #define SPI1_MOSI_Pin GPIO_PIN_7
 #define SPI1_MOSI_GPIO_Port GPIOA
 #define LCD_BL_Pin GPIO_PIN_7
@@ -75,10 +72,13 @@ void Error_Handler(void);
 #define LCD_DC_GPIO_Port GPIOA
 #define LCD_RST_Pin GPIO_PIN_9
 #define LCD_RST_GPIO_Port GPIOA
+#define TOF_XSHUT_Pin GPIO_PIN_10
+#define TOF_XSHUT_GPIO_Port GPIOA
 #define LCD_CS_Pin GPIO_PIN_6
 #define LCD_CS_GPIO_Port GPIOB
-
-SPI_HandleTypeDef hspi1;
+/* USER CODE BEGIN Private defines */
+#define SPI1_MISO_Pin GPIO_PIN_6
+#define SPI1_MISO_GPIO_Port GPIOA
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
