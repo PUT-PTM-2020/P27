@@ -52,7 +52,7 @@ void setConcentrationScreen(){
  * state 22
  */
 void setCupFillScreen(){
-	LCD_DisplayString(10,20,"Set concentration",&Font8,LCD_BACKGROUND,BLUE);
+	LCD_DisplayString(10,20,"Set fill percentage",&Font8,LCD_BACKGROUND,BLUE);
 	LCD_DrawRectangle(0,40,sLCD_DIS.LCD_Dis_Column/5,60,BLUE, DRAW_FULL, DOT_PIXEL_1X1);
 	LCD_DrawRectangle(0,40,sLCD_DIS.LCD_Dis_Column,60,BLUE, DRAW_EMPTY, DOT_PIXEL_1X1);
 	LCD_DisplayString(10,80,"20%",&Font12,LCD_BACKGROUND,BLUE);

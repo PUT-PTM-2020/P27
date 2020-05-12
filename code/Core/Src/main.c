@@ -75,12 +75,12 @@ void init() {
 
 	// Run LCD test
 	//LCD_Show();
-	startingScreen();
+	//startingScreen();
 	//setConcentrationScreen();
 	//setCupFillScreen();
 	//movedCupErrorScreen();
 	//emptyTankScreen();
-	//programistScreen();
+	programistScreen();
 
 	Driver_Delay_ms(1000);
 }
