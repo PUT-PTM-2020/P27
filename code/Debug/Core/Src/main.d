@@ -25,8 +25,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
- ../Core/Src/../User/LCD/DEV_Config.h ../Core/Src/../User/LCD/LCD.h \
- ../Core/Src/../User/LCD/../Fonts/fonts.h
+ D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/ST7735S_dev_config.h \
+ D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/ST7735S.h \
+ D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/fonts.h
 
 ../Core/Inc/main.h:
 
@@ -82,8 +83,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
 
-../Core/Src/../User/LCD/DEV_Config.h:
+D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/ST7735S_dev_config.h:
 
-../Core/Src/../User/LCD/LCD.h:
+D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/ST7735S.h:
 
-../Core/Src/../User/LCD/../Fonts/fonts.h:
+D:/Programowanie/STM/ptm-machine/code/Lib/ST7735S/Inc/fonts.h:

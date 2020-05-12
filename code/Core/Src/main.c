@@ -24,7 +24,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <string.h>
-#include "../User/LCD/DEV_Config.h"
+
+// LED screen
+#include "ST7735S_dev_config.h"
 
 
 /* USER CODE END Includes */
@@ -36,8 +38,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define B1_Pin GPIO_PIN_0
-#define B1_GPIO_Port GPIOA   //BL
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -64,16 +65,13 @@ static void MX_SPI1_Init(void);
 /* USER CODE BEGIN 0 */
 
 void init() {
-	printf("**Init LCD**\r\n");
-	    LCD_SCAN_DIR Lcd_ScanDir = SCAN_DIR_DFT;//SCAN_DIR_DFT = D2U_L2R
-	    LCD_Init( Lcd_ScanDir );
+	// Initialize
+	LCD_SCAN_DIR Lcd_ScanDir = SCAN_DIR_DFT;
+	LCD_Init( Lcd_ScanDir );
 
-	    printf("LCD Show \r\n");
-	    LCD_Show();
-	    Driver_Delay_ms(1000);
-
-
-
+	// Run LCD test
+	LCD_Show();
+	Driver_Delay_ms(1000);
 }
 
 
@@ -116,7 +114,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
   init();
-  //HAL_GPIO_WritePin(ST7735_RES_GPIO_Port, ST7735_RES_Pin, GPIO_PIN_RESET);
    while (1)
    {
 
