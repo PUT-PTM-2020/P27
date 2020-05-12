@@ -8,6 +8,8 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include Lib/VL53L0X/platform/src/subdir.mk
+-include Lib/VL53L0X/core/src/subdir.mk
 -include Lib/ST7735S/Src/subdir.mk
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk

@@ -1,5 +1,10 @@
-Lib/ST7735S/ST7735S_dev_config.o: ../Lib/ST7735S/ST7735S_dev_config.c \
- ../Lib/ST7735S/ST7735S_dev_config.h \
+Lib/VL53L0X/platform/src/vl53l0x_platform.o: \
+ ../Lib/VL53L0X/platform/src/vl53l0x_platform.c \
+ D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/platform/inc/vl53l0x_platform.h \
+ D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/core/inc/vl53l0x_def.h \
+ D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/core/inc/vl53l0x_device.h \
+ D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/platform/inc/vl53l0x_types.h \
+ D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/platform/inc/vl53l0x_platform_log.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -23,12 +28,24 @@ Lib/ST7735S/ST7735S_dev_config.o: ../Lib/ST7735S/ST7735S_dev_config.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
- ../Core/Inc/main.h ../Lib/ST7735S/ST7735S.h ../Lib/ST7735S/Fonts/fonts.h
+ D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/core/inc/vl53l0x_api.h \
+ D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/core/inc/vl53l0x_api_strings.h \
+ D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/core/inc/vl53l0x_def.h
 
-../Lib/ST7735S/ST7735S_dev_config.h:
+D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/platform/inc/vl53l0x_platform.h:
+
+D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/core/inc/vl53l0x_def.h:
+
+D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/core/inc/vl53l0x_device.h:
+
+D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/platform/inc/vl53l0x_types.h:
+
+D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/platform/inc/vl53l0x_platform_log.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 
@@ -76,14 +93,18 @@ Lib/ST7735S/ST7735S_dev_config.o: ../Lib/ST7735S/ST7735S_dev_config.c \
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h:
 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h:
+
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h:
+
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
 
-../Core/Inc/main.h:
+D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/core/inc/vl53l0x_api.h:
 
-../Lib/ST7735S/ST7735S.h:
+D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/core/inc/vl53l0x_api_strings.h:
 
-../Lib/ST7735S/Fonts/fonts.h:
+D:/Programowanie/STM/ptm-machine/code/Lib/VL53L0X/core/inc/vl53l0x_def.h:

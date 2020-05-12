@@ -58,6 +58,10 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define TOF_EXTI_Pin GPIO_PIN_1
+#define TOF_EXTI_GPIO_Port GPIOA
+#define TOF_XSHUT_Pin GPIO_PIN_10
+#define TOF_XSHUT_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */
 #define SPI1_SCK_Pin GPIO_PIN_5
 #define SPI1_SCK_GPIO_Port GPIOA

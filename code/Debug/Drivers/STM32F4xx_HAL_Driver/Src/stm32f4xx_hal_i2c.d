@@ -1,5 +1,5 @@
-Lib/ST7735S/ST7735S.o: ../Lib/ST7735S/ST7735S.c ../Lib/ST7735S/ST7735S.h \
- ../Lib/ST7735S/Fonts/fonts.h ../Lib/ST7735S/ST7735S_dev_config.h \
+Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o: \
+ ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -23,16 +23,11 @@ Lib/ST7735S/ST7735S.o: ../Lib/ST7735S/ST7735S.c ../Lib/ST7735S/ST7735S.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
- ../Core/Inc/main.h
-
-../Lib/ST7735S/ST7735S.h:
-
-../Lib/ST7735S/Fonts/fonts.h:
-
-../Lib/ST7735S/ST7735S_dev_config.h:
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 
@@ -80,10 +75,12 @@ Lib/ST7735S/ST7735S.o: ../Lib/ST7735S/ST7735S.c ../Lib/ST7735S/ST7735S.h \
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h:
 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h:
+
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h:
+
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
-
-../Core/Inc/main.h:
