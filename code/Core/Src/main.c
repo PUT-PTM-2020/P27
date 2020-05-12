@@ -27,6 +27,9 @@
 
 // LED screen
 #include "ST7735S_dev_config.h"
+#include "ST7735S.h"
+#include "Menu.h"
+
 
 // Distance sensor
 #include "vl53l0x_api.h"
@@ -51,8 +54,9 @@
 
 /* Private variables ---------------------------------------------------------*/
 I2C_HandleTypeDef hi2c1;
-
 SPI_HandleTypeDef hspi1;
+volatile int stateQ1=0;
+volatile int stateQ2=0;
 
 /* USER CODE BEGIN PV */
 // Distance sensor
@@ -81,7 +85,14 @@ void init() {
 	LCD_Init( Lcd_ScanDir );
 
 	// Run LCD test
-	LCD_Show();
+	//LCD_Show();
+	//startingScreen();
+	//setConcentrationScreen();
+	//setCupFillScreen();
+	//movedCupErrorScreen();
+	//emptyTankScreen();
+	programistScreen();
+
 	Driver_Delay_ms(1000);
 }
 
