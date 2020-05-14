@@ -1,6 +1,0 @@
-Menu.c:27:6:startingScreen	16	static
-Menu.c:44:6:setConcentrationScreen	24	static
-Menu.c:54:6:setCupFillScreen	24	static
-Menu.c:64:6:movedCupErrorScreen	16	static
-Menu.c:72:6:emptyTankScreen	16	static
-Menu.c:77:6:programistScreen	16	static
