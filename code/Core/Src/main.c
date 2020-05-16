@@ -1,21 +1,21 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file           : main.c
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
+ * All rights reserved.</center></h2>
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
@@ -79,28 +79,28 @@ uint8_t PhaseCal;
 uint16_t milimeters = 0;
 
 void init_lcd() {
-	// Initialize
-	LCD_SCAN_DIR Lcd_ScanDir = SCAN_DIR_DFT;
-	LCD_Init( Lcd_ScanDir );
+  // Initialize
+  LCD_SCAN_DIR Lcd_ScanDir = SCAN_DIR_DFT;
+  LCD_Init( Lcd_ScanDir );
 
-	// Run LCD test
-	//LCD_Show();
-	//startingScreen();
-	//setConcentrationScreen();
-	//setCupFillScreen();
-	//movedCupErrorScreen();
-	//emptyTankScreen();
-	programistScreen();
+  // Run LCD test
+  //LCD_Show();
+  //startingScreen();
+  //setConcentrationScreen();
+  //setCupFillScreen();
+  //movedCupErrorScreen();
+  //emptyTankScreen();
+  programistScreen();
 
-	Driver_Delay_ms(1000);
+  Driver_Delay_ms(1000);
 }
 
 /* USER CODE END 0 */
 
 /**
-  * @brief  The application entry point.
-  * @retval int
-  */
+ * @brief  The application entry point.
+ * @retval int
+ */
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -132,47 +132,47 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim4);
 
   // Start first motor clock wise rotation
-	HAL_GPIO_WritePin(L293D_PUMP1_1_GPIO_Port, L293D_PUMP1_1_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(L293D_PUMP1_2_GPIO_Port, L293D_PUMP1_2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(L293D_PUMP1_1_GPIO_Port, L293D_PUMP1_1_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(L293D_PUMP1_2_GPIO_Port, L293D_PUMP1_2_Pin, GPIO_PIN_RESET);
 
 
-	Dev->I2cHandle = &hi2c1;
-	Dev->I2cDevAddr = 0x52;
+  Dev->I2cHandle = &hi2c1;
+  Dev->I2cDevAddr = 0x52;
 
-	  HAL_GPIO_WritePin(TOF_XSHUT_GPIO_Port, TOF_XSHUT_Pin, GPIO_PIN_RESET); // Disable XSHUT
-	  HAL_Delay(20);
-	  HAL_GPIO_WritePin(TOF_XSHUT_GPIO_Port, TOF_XSHUT_Pin, GPIO_PIN_SET); // Enable XSHUT
-	  HAL_Delay(20);
+  HAL_GPIO_WritePin(TOF_XSHUT_GPIO_Port, TOF_XSHUT_Pin, GPIO_PIN_RESET); // Disable XSHUT
+  HAL_Delay(20);
+  HAL_GPIO_WritePin(TOF_XSHUT_GPIO_Port, TOF_XSHUT_Pin, GPIO_PIN_SET); // Enable XSHUT
+  HAL_Delay(20);
 
-	//
-	// VL53L0X init for Single Measurement
-	//
-	HAL_NVIC_DisableIRQ(EXTI1_IRQn);
+  //
+  // VL53L0X init for Single Measurement
+  //
+  HAL_NVIC_DisableIRQ(EXTI1_IRQn);
 
-	VL53L0X_WaitDeviceBooted( Dev );
-	VL53L0X_DataInit( Dev );
-	VL53L0X_StaticInit( Dev );
-	VL53L0X_PerformRefCalibration(Dev, &VhvSettings, &PhaseCal);
-	VL53L0X_PerformRefSpadManagement(Dev, &refSpadCount, &isApertureSpads);
-	VL53L0X_SetDeviceMode(Dev, VL53L0X_DEVICEMODE_CONTINUOUS_RANGING);
-	VL53L0X_StartMeasurement(Dev);
+  VL53L0X_WaitDeviceBooted( Dev );
+  VL53L0X_DataInit( Dev );
+  VL53L0X_StaticInit( Dev );
+  VL53L0X_PerformRefCalibration(Dev, &VhvSettings, &PhaseCal);
+  VL53L0X_PerformRefSpadManagement(Dev, &refSpadCount, &isApertureSpads);
+  VL53L0X_SetDeviceMode(Dev, VL53L0X_DEVICEMODE_CONTINUOUS_RANGING);
+  VL53L0X_StartMeasurement(Dev);
 
-	HAL_NVIC_EnableIRQ(EXTI1_IRQn);
+  HAL_NVIC_EnableIRQ(EXTI1_IRQn);
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-	init_lcd();
-   while (1)
-   {
+  init_lcd();
+  while (1)
+  {
 
-	if(TofDataRead == 1)
-	{
-		milimeters = RangingData.RangeMilliMeter;
-		TofDataRead = 0;
-	}
+    if(TofDataRead == 1)
+    {
+      milimeters = RangingData.RangeMilliMeter;
+      TofDataRead = 0;
+    }
 
     /* USER CODE END WHILE */
 
@@ -182,20 +182,20 @@ int main(void)
 }
 
 /**
-  * @brief System Clock Configuration
-  * @retval None
-  */
+ * @brief System Clock Configuration
+ * @retval None
+ */
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
   /** Configure the main internal regulator output voltage 
-  */
+   */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
   /** Initializes the CPU, AHB and APB busses clocks 
-  */
+   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
@@ -209,9 +209,9 @@ void SystemClock_Config(void)
     Error_Handler();
   }
   /** Initializes the CPU, AHB and APB busses clocks 
-  */
+   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+      |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
@@ -224,29 +224,29 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-	void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-	{
-		if(GPIO_Pin == TOF_EXTI_Pin)
-		{
-			VL53L0X_GetRangingMeasurementData(Dev, &RangingData);
-			VL53L0X_ClearInterruptMask(Dev, VL53L0X_REG_SYSTEM_INTERRUPT_GPIO_NEW_SAMPLE_READY);
-			TofDataRead = 1;
-		}
-	}
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if(GPIO_Pin == TOF_EXTI_Pin)
+  {
+    VL53L0X_GetRangingMeasurementData(Dev, &RangingData);
+    VL53L0X_ClearInterruptMask(Dev, VL53L0X_REG_SYSTEM_INTERRUPT_GPIO_NEW_SAMPLE_READY);
+    TofDataRead = 1;
+  }
+}
 
-	void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-		if(htim->Instance == TIM4)
-		{
-			// Handle pump timer if needed
-		}
-	}
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+  if(htim->Instance == TIM4)
+  {
+    // Handle pump timer if needed
+  }
+}
 
 /* USER CODE END 4 */
 
 /**
-  * @brief  This function is executed in case of error occurrence.
-  * @retval None
-  */
+ * @brief  This function is executed in case of error occurrence.
+ * @retval None
+ */
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
@@ -257,12 +257,12 @@ void Error_Handler(void)
 
 #ifdef  USE_FULL_ASSERT
 /**
-  * @brief  Reports the name of the source file and the source line number
-  *         where the assert_param error has occurred.
-  * @param  file: pointer to the source file name
-  * @param  line: assert_param error line source number
-  * @retval None
-  */
+ * @brief  Reports the name of the source file and the source line number
+ *         where the assert_param error has occurred.
+ * @param  file: pointer to the source file name
+ * @param  line: assert_param error line source number
+ * @retval None
+ */
 void assert_failed(uint8_t *file, uint32_t line)
 { 
   /* USER CODE BEGIN 6 */
