@@ -22,6 +22,7 @@
 #include "main.h"
 #include "i2c.h"
 #include "spi.h"
+#include "tim.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -126,7 +127,14 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   MX_I2C1_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
+  HAL_TIM_Base_Start_IT(&htim4);
+
+  // Start first motor clock wise rotation
+	HAL_GPIO_WritePin(L293D_PUMP1_1_GPIO_Port, L293D_PUMP1_1_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(L293D_PUMP1_2_GPIO_Port, L293D_PUMP1_2_Pin, GPIO_PIN_RESET);
+
 
 	Dev->I2cHandle = &hi2c1;
 	Dev->I2cDevAddr = 0x52;
@@ -225,6 +233,14 @@ void SystemClock_Config(void)
 			TofDataRead = 1;
 		}
 	}
+
+	void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+		if(htim->Instance == TIM4)
+		{
+			// Handle pump timer if needed
+		}
+	}
+
 /* USER CODE END 4 */
 
 /**
