@@ -66,6 +66,10 @@ void Error_Handler(void);
 #define SPI1_SCK_GPIO_Port GPIOA
 #define SPI1_MOSI_Pin GPIO_PIN_7
 #define SPI1_MOSI_GPIO_Port GPIOA
+#define ENCODER_SIA_Pin GPIO_PIN_9
+#define ENCODER_SIA_GPIO_Port GPIOE
+#define ENCODER_SIB_Pin GPIO_PIN_11
+#define ENCODER_SIB_GPIO_Port GPIOE
 #define L293D_PWM_Pin GPIO_PIN_12
 #define L293D_PWM_GPIO_Port GPIOD
 #define LCD_BL_Pin GPIO_PIN_7
