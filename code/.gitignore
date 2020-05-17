@@ -36,7 +36,7 @@ bld/
 *.pydevproject
 
 # CDT-specific (C/C++ Development Tooling)
-.cproject
+# .cproject
 
 # CDT- autotools
 .autotools
