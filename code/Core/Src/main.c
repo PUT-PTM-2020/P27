@@ -24,16 +24,13 @@
 #include "spi.h"
 #include "tim.h"
 #include "gpio.h"
-#include "stdlib.h"
-#include <string.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <string.h>
 
 // LED screen
 #include "ST7735S_dev_config.h"
-#include "ST7735S.h"
 #include "Menu.h"
 
 // Distance sensor
@@ -65,20 +62,6 @@ VL53L0X_Dev_t vl53l0x_c;
 VL53L0X_DEV Dev = &vl53l0x_c;
 
 volatile uint8_t TofDataRead;
-
-// PWM
-volatile uint16_t duty = 0; // Wypelnienie generowanego sygnalu PWM
-// Zmienne obslugujace wejsciowy sygnal PWM
-volatile uint16_t InputPWMPeriod_cycles; // Czas trwania calego okresu sygnalu [w cyklach zegara]
-volatile uint16_t InputPWMPeriod_miliseconds; // Czas trwania calego okresu sygnalu [w milisekundach]
-volatile uint16_t InputPWMDuty_cycles; // Czas trwania stanu wysokiego [w cyklach zegara]
-volatile uint16_t InputPWMDuty_percent; // Wspolczynnik wypelnienia sygnalu PWM [w procentach]
-const uint16_t InputTimerResolution_cycles = 2000; // Rozdzielczosc zegara odczytujacego sygnal PWM [w cyklach zegara]
-const uint16_t InputTimerPeriodDuration_miliseconds = 20; // Czas trwania jednego okresu timera odczytujacego sygnal PWM [w milisekundach]
- // Zmienne do obslugi enkodera
-volatile uint16_t pulse_count; // liczba zliczonych impulsow
-volatile uint16_t positions;
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -107,38 +90,17 @@ void init_lcd() {
   //setCupFillScreen();
   //movedCupErrorScreen();
   //emptyTankScreen();
- // programistScreen();
+  programistScreen();
 
-  //Driver_Delay_ms(1000);
-}
-
-void pwm(){
-
-	 // Odczytanie wartosci enkodera i zeskalowanie do liczby "stablinych pozycji"
-	 pulse_count = (TIM1->CNT) / 4;
-
-	 // Ustawienie wypelnienia rownego odczytanej liczbie impulsow
-	 duty = pulse_count;
-
-	 // odczytanie dlugosci trwania okresu sygnalu (w cyklach zegara)
-	 InputPWMPeriod_cycles = HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_1) + 1;
-
-	 // odczytanie dlugosci trwania stanu wysokiego w sygnale (w cyklach zegara)
-	 InputPWMDuty_cycles = HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_2) + 1;
-
-	 // Przeliczenie dlugosci trwania okresu sygnalu na milisekundy
-	 InputPWMPeriod_miliseconds = ((InputPWMPeriod_cycles* InputTimerPeriodDuration_miliseconds) / (InputTimerResolution_cycles));
-
-	 // Obliczenie procentu wypelnienia sygnalu PWM
-	 InputPWMDuty_percent = (InputPWMDuty_cycles) * 100/ (InputPWMPeriod_cycles);
+  Driver_Delay_ms(1000);
 }
 
 /* USER CODE END 0 */
 
 /**
-  * @brief  The application entry point.
-  * @retval int
-  */
+ * @brief  The application entry point.
+ * @retval int
+ */
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -166,21 +128,8 @@ int main(void)
   MX_SPI1_Init();
   MX_I2C1_Init();
   MX_TIM4_Init();
-  MX_TIM1_Init();
-  MX_TIM2_Init();
-  MX_TIM9_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim4);
-
-  // Encoder
-  HAL_TIM_Encoder_Start(&htim1, TIM_CHANNEL_ALL);
-
-  // PWM
-  //HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_3);//
-  HAL_TIM_IC_Start(&htim9, TIM_CHANNEL_1);
-  HAL_TIM_IC_Start(&htim9, TIM_CHANNEL_2);
-  HAL_TIM_PWM_Start_DMA(&htim4, TIM_CHANNEL_3, &duty, 1);
-
 
   // Start first motor clock wise rotation
   HAL_GPIO_WritePin(L293D_PUMP1_1_GPIO_Port, L293D_PUMP1_1_Pin, GPIO_PIN_SET);
@@ -225,12 +174,6 @@ int main(void)
       TofDataRead = 0;
     }
 
-    pwm();
-
-       LCD_DisplayString(10,40,InputPWMDuty_percent ,&Font24,LCD_BACKGROUND,BLUE);
-       HAL_Delay(1000);
-
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -239,20 +182,20 @@ int main(void)
 }
 
 /**
-  * @brief System Clock Configuration
-  * @retval None
-  */
+ * @brief System Clock Configuration
+ * @retval None
+ */
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
   /** Configure the main internal regulator output voltage 
-  */
+   */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
   /** Initializes the CPU, AHB and APB busses clocks 
-  */
+   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
@@ -266,9 +209,9 @@ void SystemClock_Config(void)
     Error_Handler();
   }
   /** Initializes the CPU, AHB and APB busses clocks 
-  */
+   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+      |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
@@ -301,9 +244,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 /* USER CODE END 4 */
 
 /**
-  * @brief  This function is executed in case of error occurrence.
-  * @retval None
-  */
+ * @brief  This function is executed in case of error occurrence.
+ * @retval None
+ */
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
@@ -314,12 +257,12 @@ void Error_Handler(void)
 
 #ifdef  USE_FULL_ASSERT
 /**
-  * @brief  Reports the name of the source file and the source line number
-  *         where the assert_param error has occurred.
-  * @param  file: pointer to the source file name
-  * @param  line: assert_param error line source number
-  * @retval None
-  */
+ * @brief  Reports the name of the source file and the source line number
+ *         where the assert_param error has occurred.
+ * @param  file: pointer to the source file name
+ * @param  line: assert_param error line source number
+ * @retval None
+ */
 void assert_failed(uint8_t *file, uint32_t line)
 { 
   /* USER CODE BEGIN 6 */
