@@ -8,7 +8,7 @@
 #ifndef INC_MENU_H_
 #define INC_MENU_H_
 
-void startingScreen(void);
+void startingScreen(uint16_t encoder_position);
 
 void setConcentrationScreen(void);
 

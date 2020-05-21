@@ -11,7 +11,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-
+#include "main.h"
+//activeMenu
+// activeListItem
 /*void LCD_DisplayString (	POINT Xstart, POINT Ystart, const char * pString,
 							sFONT* Font,COLOR Color_Background, COLOR Color_Foreground ) */
 /*void LCD_DrawCircle ( 	POINT X_Center, POINT Y_Center, LENGTH Radius,
@@ -24,17 +26,43 @@ LCD_DrawCircle( Cx1, Cy1, Cr, BLUE, DRAW_EMPTY, DOT_PIXEL_DFT);
  * starting menu
  * state 00
  */
-void startingScreen(){
-	LCD_DisplayString(10,20,"Pour juice",&Font12,LCD_BACKGROUND,BLUE);
+void startingScreen(uint16_t encoder_position){
+
+	if(encoder_position<=20){
+	LCD_DisplayString(10,20,"Pour juice",&Font12,LCD_BACKGROUND,RED);
 	LCD_DisplayString(10,40,"Pour water",&Font12,LCD_BACKGROUND,BLUE);
 	LCD_DisplayString(10,60,"Mix",&Font12,LCD_BACKGROUND,BLUE);
 	LCD_DisplayString(10,80,"Settings",&Font12,LCD_BACKGROUND,BLUE);
 	LCD_DisplayString(10,100,"Programist",&Font12,LCD_BACKGROUND,BLUE);
-	LCD_DrawCircle(100, 20, 5 , RED, DRAW_EMPTY, DOT_PIXEL_DFT);
-	LCD_DrawCircle(100, 40, 5 , RED, DRAW_FULL, DOT_PIXEL_DFT);
-	LCD_DrawCircle(100, 60, 5 , RED, DRAW_EMPTY, DOT_PIXEL_DFT);
-	LCD_DrawCircle(100, 80, 5 , RED, DRAW_EMPTY, DOT_PIXEL_DFT);
-	LCD_DrawCircle(100, 100, 5 , RED, DRAW_EMPTY, DOT_PIXEL_DFT);
+
+	}else if(encoder_position>20 && encoder_position<=40){
+		LCD_DisplayString(10,20,"Pour juice",&Font12,LCD_BACKGROUND,BLUE);
+		LCD_DisplayString(10,40,"Pour water",&Font12,LCD_BACKGROUND,RED);
+		LCD_DisplayString(10,60,"Mix",&Font12,LCD_BACKGROUND,BLUE);
+		LCD_DisplayString(10,80,"Settings",&Font12,LCD_BACKGROUND,BLUE);
+		LCD_DisplayString(10,100,"Programist",&Font12,LCD_BACKGROUND,BLUE);
+
+		}else if(encoder_position>40 && encoder_position<=60){
+
+	LCD_DisplayString(10,20,"Pour juice",&Font12,LCD_BACKGROUND,BLUE);
+	LCD_DisplayString(10,40,"Pour water",&Font12,LCD_BACKGROUND,BLUE);
+	LCD_DisplayString(10,60,"Mix",&Font12,LCD_BACKGROUND,RED);
+	LCD_DisplayString(10,80,"Settings",&Font12,LCD_BACKGROUND,BLUE);
+	LCD_DisplayString(10,100,"Programist",&Font12,LCD_BACKGROUND,BLUE);
+		}else if(encoder_position>60 && encoder_position<=80){
+	LCD_DisplayString(10,20,"Pour juice",&Font12,LCD_BACKGROUND,BLUE);
+	LCD_DisplayString(10,40,"Pour water",&Font12,LCD_BACKGROUND,BLUE);
+	LCD_DisplayString(10,60,"Mix",&Font12,LCD_BACKGROUND,BLUE);
+	LCD_DisplayString(10,80,"Settings",&Font12,LCD_BACKGROUND,RED);
+	LCD_DisplayString(10,100,"Programist",&Font12,LCD_BACKGROUND,BLUE);
+
+		}else if(encoder_position>80){
+	LCD_DisplayString(10,20,"Pour juice",&Font12,LCD_BACKGROUND,BLUE);
+	LCD_DisplayString(10,40,"Pour water",&Font12,LCD_BACKGROUND,BLUE);
+	LCD_DisplayString(10,60,"Mix",&Font12,LCD_BACKGROUND,BLUE);
+	LCD_DisplayString(10,80,"Settings",&Font12,LCD_BACKGROUND,BLUE);
+	LCD_DisplayString(10,100,"Programist",&Font12,LCD_BACKGROUND,RED);
+}
 }
 //void LCD_DrawRectangle ( POINT Xstart, POINT Ystart, POINT Xend, POINT Yend, COLOR Color, DRAW_FILL Filled , DOT_PIXEL Dot_Pixel );
 /**
