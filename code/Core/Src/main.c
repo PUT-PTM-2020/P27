@@ -68,6 +68,10 @@ volatile uint16_t pulse_count; // impulse counter
 volatile uint16_t encoder_position; // position counter licznik przekreconych pozycji
 volatile uint8_t ToEncdrSW;
 
+// Menu
+volatile uint8_t activeMenu = 0;
+volatile uint8_t activeListItem = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
