@@ -70,6 +70,9 @@ void Error_Handler(void);
 #define ENCDR_SIA_GPIO_Port GPIOE
 #define ENCDR_SIB_Pin GPIO_PIN_11
 #define ENCDR_SIB_GPIO_Port GPIOE
+#define ENCDR_SW_Pin GPIO_PIN_12
+#define ENCDR_SW_GPIO_Port GPIOB
+#define ENCDR_SW_EXTI_IRQn EXTI15_10_IRQn
 #define L293D_PWM_Pin GPIO_PIN_12
 #define L293D_PWM_GPIO_Port GPIOD
 #define LCD_BL_Pin GPIO_PIN_7

@@ -66,7 +66,7 @@ volatile uint8_t TofDataRead;
 // Encoder
 volatile uint16_t pulse_count; // impulse counter
 volatile uint16_t encoder_position; // position counter licznik przekreconych pozycji
-
+volatile uint8_t ToEncdrSW;
 
 /* USER CODE END PV */
 
@@ -140,6 +140,9 @@ int main(void)
 
   // Start encoder channels
   HAL_TIM_Encoder_Start(&htim1, TIM_CHANNEL_ALL);
+  // Encoder Button
+  HAL_GPIO_WritePin(ENCDR_SW_GPIO_Port, ENCDR_SW_Pin, GPIO_PIN_RESET);
+
 
   // Start first motor clock wise rotation
   HAL_GPIO_WritePin(L293D_PUMP1_1_GPIO_Port, L293D_PUMP1_1_Pin, GPIO_PIN_SET);
@@ -186,6 +189,14 @@ int main(void)
 
     pulse_count = TIM1->CNT; // przepisanie wartosci z rejestru timera
     encoder_position = pulse_count/4; // zeskalowanie impulsow do liczby stabilnych pozycji walu enkodera
+
+
+    if(ToEncdrSW == 1)
+       {
+    	 LCD_Clear(WHITE);
+         ToEncdrSW = 0;
+       }
+
 
     /* USER CODE END WHILE */
 
@@ -245,6 +256,14 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     VL53L0X_ClearInterruptMask(Dev, VL53L0X_REG_SYSTEM_INTERRUPT_GPIO_NEW_SAMPLE_READY);
     TofDataRead = 1;
   }
+
+
+  if(GPIO_Pin == ENCDR_SW_Pin)
+  {
+	  	LCD_DrawCircle(100, 40, 5 , RED, DRAW_FULL, DOT_PIXEL_DFT);
+ 	  	ToEncdrSW=1;
+  }
+
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
