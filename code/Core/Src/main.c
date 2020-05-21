@@ -101,6 +101,11 @@ void init_lcd() {
   Driver_Delay_ms(1000);
 }
 
+void encoder(){
+    pulse_count = TIM1->CNT; // przepisanie wartosci z rejestru timera
+    encoder_position = pulse_count/2; // zeskalowanie impulsow do liczby stabilnych pozycji walu enkodera
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -180,15 +185,13 @@ int main(void)
   init_lcd();
   while (1)
   {
+	  encoder();
 
     if(TofDataRead == 1)
     {
       milimeters = RangingData.RangeMilliMeter;
       TofDataRead = 0;
     }
-
-    pulse_count = TIM1->CNT; // przepisanie wartosci z rejestru timera
-    encoder_position = pulse_count/4; // zeskalowanie impulsow do liczby stabilnych pozycji walu enkodera
 
 
     if(ToEncdrSW == 1)
