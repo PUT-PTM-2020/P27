@@ -105,10 +105,19 @@ void init_lcd() {
   Driver_Delay_ms(1000);
 }
 
+void menu_display(){
+	if(activeMenu == 0){
+		startingScreen(encoder_position);
+	}
+}
+
+
 void encoder(){
     pulse_count = TIM1->CNT; // przepisanie wartosci z rejestru timera
     encoder_position = pulse_count/2; // zeskalowanie impulsow do liczby stabilnych pozycji walu enkodera
 }
+
+
 
 /* USER CODE END 0 */
 
@@ -152,6 +161,9 @@ int main(void)
   // Encoder Button
   HAL_GPIO_WritePin(ENCDR_SW_GPIO_Port, ENCDR_SW_Pin, GPIO_PIN_RESET);
 
+  // Init of LCD screen
+  LCD_SCAN_DIR Lcd_ScanDir = SCAN_DIR_DFT;
+  LCD_Init( Lcd_ScanDir );
 
   // Start first motor clock wise rotation
   HAL_GPIO_WritePin(L293D_PUMP1_1_GPIO_Port, L293D_PUMP1_1_Pin, GPIO_PIN_SET);
@@ -186,10 +198,10 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  init_lcd();
   while (1)
   {
 	  encoder();
+	  menu_display();
 
     if(TofDataRead == 1)
     {
