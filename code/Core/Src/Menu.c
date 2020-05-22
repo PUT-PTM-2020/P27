@@ -55,9 +55,9 @@ void startingScreen(){
 		LCD_DisplayString(10,80,"Settings",&Font12,LCD_BACKGROUND,BLUE);
 		LCD_DisplayString(10,100,"Programist",&Font12,LCD_BACKGROUND,BLUE);
 		if(ToEncdrSW==1){
-						ToEncdrSW=2;
+						ToEncdrSW=0;
 						LCD_Clear(WHITE);
-						activeMenu=5;
+						activeMenu=2;
 			}
 
 		}else if(encoder_position>40 && encoder_position<=60){
@@ -105,6 +105,18 @@ void startingScreen(){
  */
 void pourJuiceScreen(){
 	LCD_DisplayString(10,20,"POURING JUICE",&Font12,LCD_BACKGROUND,BLUE);
+	LCD_DisplayString(10,40,"PRESS BUTTON",&Font12,LCD_BACKGROUND,BLUE);
+	LCD_DisplayString(10,60,"TO STOP",&Font12,LCD_BACKGROUND,BLUE);
+	if(ToEncdrSW==1){
+			LCD_Clear(WHITE);
+			activeMenu=0;
+			ToEncdrSW=0;
+		}
+
+}
+
+void pourWaterScreen(){
+	LCD_DisplayString(10,20,"POURING WATER",&Font12,LCD_BACKGROUND,BLUE);
 	LCD_DisplayString(10,40,"PRESS BUTTON",&Font12,LCD_BACKGROUND,BLUE);
 	LCD_DisplayString(10,60,"TO STOP",&Font12,LCD_BACKGROUND,BLUE);
 	if(ToEncdrSW==1){

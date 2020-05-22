@@ -105,7 +105,7 @@ void menu_display(){
 	}else if(get_activeMenu() == 1){
 		pourJuiceScreen();
 	}else if(get_activeMenu()  == 2){
-
+		pourWaterScreen();
 	}else if(get_activeMenu()  == 3){
 
 	}else if(get_activeMenu()  == 4){
