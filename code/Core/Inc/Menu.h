@@ -8,7 +8,18 @@
 #ifndef INC_MENU_H_
 #define INC_MENU_H_
 
-void startingScreen(uint16_t encoder_position);
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+void encoder(void);
+
+void setToEncdrSW();
+
+void startingScreen();
+
+void pourJuiceScreen();
 
 void setConcentrationScreen(void);
 
@@ -19,5 +30,9 @@ void movedCupErrorScreen(void);
 void emptyTankScreen(void);
 
 void programistScreen(void);
+
+uint8_t get_activeMenu();
+
+uint8_t get_activeListItem();
 
 #endif /* INC_MENU_H_ */
