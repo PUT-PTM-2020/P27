@@ -63,14 +63,8 @@ VL53L0X_DEV Dev = &vl53l0x_c;
 
 volatile uint8_t TofDataRead;
 
-// Encoder
-volatile uint16_t pulse_count; // impulse counter
-volatile uint16_t encoder_position; // position counter licznik przekreconych pozycji
-volatile uint8_t ToEncdrSW;
 
-// Menu
-volatile uint8_t activeMenu = 0;
-volatile uint8_t activeListItem = 0;
+
 
 /* USER CODE END PV */
 
@@ -106,16 +100,21 @@ void init_lcd() {
 }
 
 void menu_display(){
-	if(activeMenu == 0){
-		startingScreen(encoder_position);
+	if(get_activeMenu() == 0){
+		startingScreen();
+	}else if(get_activeMenu() == 1){
+		pourJuiceScreen();
+	}else if(get_activeMenu()  == 2){
+
+	}else if(get_activeMenu()  == 3){
+
+	}else if(get_activeMenu()  == 4){
+
 	}
 }
 
 
-void encoder(){
-    pulse_count = TIM1->CNT; // przepisanie wartosci z rejestru timera
-    encoder_position = pulse_count/2; // zeskalowanie impulsow do liczby stabilnych pozycji walu enkodera
-}
+
 
 
 
@@ -210,12 +209,11 @@ int main(void)
     }
 
 
-    if(ToEncdrSW == 1)
+  /*  if(ToEncdrSW == 1)
        {
-    	 LCD_Clear(WHITE);
          ToEncdrSW = 0;
        }
-
+*/
 
     /* USER CODE END WHILE */
 
@@ -279,8 +277,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
   if(GPIO_Pin == ENCDR_SW_Pin)
   {
-	  	LCD_DrawCircle(100, 40, 5 , RED, DRAW_FULL, DOT_PIXEL_DFT);
- 	  	ToEncdrSW=1;
+	  setToEncdrSW();
   }
 
 }
