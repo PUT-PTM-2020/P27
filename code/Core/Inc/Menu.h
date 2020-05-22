@@ -23,7 +23,7 @@ void pourJuiceScreen();
 
 void pourWaterScreen();
 
-void setConcentrationScreen(void);
+void mixScreen(void);
 
 void setCupFillScreen(void);
 

@@ -114,7 +114,10 @@ void pourJuiceScreen(){
 		}
 
 }
-
+/**
+ * pouring juice screen
+ * open when activeMenu==2
+ */
 void pourWaterScreen(){
 	LCD_DisplayString(10,20,"POURING WATER",&Font12,LCD_BACKGROUND,BLUE);
 	LCD_DisplayString(10,40,"PRESS BUTTON",&Font12,LCD_BACKGROUND,BLUE);
@@ -126,12 +129,40 @@ void pourWaterScreen(){
 		}
 
 }
+/**
+ * pouring juice screen
+ * open when activeMenu==3
+ */
+void mixScreen(){
+	if(encoder_position<=33){
+	LCD_DisplayString(10,20,"Set concentration",&Font8,LCD_BACKGROUND,RED);
+	LCD_DisplayString(10,40,"Next",&Font8,LCD_BACKGROUND,BLUE);
+	LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,BLUE);
+	if(ToEncdrSW==1){
+			LCD_Clear(WHITE);
+			activeMenu=0;//nie zrobione
+			ToEncdrSW=0;
+		}
+	}else if(encoder_position>33&&encoder_position<=66){
+		LCD_DisplayString(10,20,"Set concentration",&Font8,LCD_BACKGROUND,BLUE);
+			LCD_DisplayString(10,40,"Next",&Font8,LCD_BACKGROUND,RED);
+			LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,BLUE);
+			if(ToEncdrSW==1){
+					LCD_Clear(WHITE);
+					activeMenu=0;//nie zrobioe
+					ToEncdrSW=0;
+				}
+	}else if(encoder_position>66){
+		LCD_DisplayString(10,20,"Set concentration",&Font8,LCD_BACKGROUND,BLUE);
+		LCD_DisplayString(10,40,"Next",&Font8,LCD_BACKGROUND,BLUE);
+		LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,RED);
+		if(ToEncdrSW==1){
+				LCD_Clear(WHITE);
+				activeMenu=0;
+				ToEncdrSW=0;
+			}
+	}
 
-void setConcentrationScreen(){
-	LCD_DisplayString(10,20,"Set concentration",&Font8,LCD_BACKGROUND,BLUE);
-	LCD_DrawRectangle(0,40,sLCD_DIS.LCD_Dis_Column/2,60,BLUE, DRAW_FULL, DOT_PIXEL_1X1);
-	LCD_DrawRectangle(0,40,sLCD_DIS.LCD_Dis_Column,60,BLUE, DRAW_EMPTY, DOT_PIXEL_1X1);
-	LCD_DisplayString(10,80,"50%",&Font12,LCD_BACKGROUND,BLUE);
 }
 
 void setCupFillScreen(){

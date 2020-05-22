@@ -107,7 +107,7 @@ void menu_display(){
 	}else if(get_activeMenu()  == 2){
 		pourWaterScreen();
 	}else if(get_activeMenu()  == 3){
-
+		mixScreen();
 	}else if(get_activeMenu()  == 4){
 
 	}
