@@ -25,6 +25,12 @@ void pourWaterScreen();
 
 void mixScreen(void);
 
+void mixScreen2();
+
+void setFillPercentageScreen();
+
+void makeingMixScreen();
+
 void setCupFillScreen(void);
 
 void setConcentrationScreen();

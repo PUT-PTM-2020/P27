@@ -178,6 +178,42 @@ void mixScreen(){
 	}
 
 }
+/**
+ * activeMenu==10
+ */
+void mixScreen2(){
+	if(encoder_position<10 || (encoder_position >=30 && encoder_position<40) ||
+			(encoder_position>=60 && encoder_position<70) || encoder_position>90 ){
+	LCD_DisplayString(10,20,"Set fill percentage",&Font8,LCD_BACKGROUND,markedItemColour);
+	LCD_DisplayString(10,40,"Next",&Font8,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,otherItemColour);
+	if(ToEncdrSW==1){
+			LCD_Clear(backgroundColour);
+			activeMenu=11;
+			ToEncdrSW=0;
+		}
+	}else if((encoder_position>=10 && encoder_position <20) || (encoder_position>=40 && encoder_position<50)||
+			(encoder_position>=70 && encoder_position<80)){
+		LCD_DisplayString(10,20,"Set fill percentage",&Font8,LCD_BACKGROUND,otherItemColour);
+			LCD_DisplayString(10,40,"Next",&Font8,LCD_BACKGROUND,markedItemColour);
+			LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,otherItemColour);
+			if(ToEncdrSW==1){
+					LCD_Clear(backgroundColour);
+					activeMenu=12;
+					ToEncdrSW=0;
+				}
+	}else{
+		LCD_DisplayString(10,20,"Set fill percentage",&Font8,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,40,"Next",&Font8,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,markedItemColour);
+		if(ToEncdrSW==1){
+						LCD_Clear(backgroundColour);
+						activeMenu=12;
+						ToEncdrSW=0;
+					}
+	}
+
+}
 
 /**
  * activeMenu==9
@@ -192,11 +228,42 @@ void setConcentrationScreen(){
 	if(ToEncdrSW==1){
 					concentration_percentage=encoder_position;
 					LCD_Clear(backgroundColour);
+					activeMenu=10;
+					ToEncdrSW=0;
+				}
+
+	HAL_Delay(500);
+}
+/**
+ * activeMenu==11
+ */
+void setFillPercentageScreen(){
+
+	char str[16];
+	itoa (encoder_position,str,10);
+	LCD_Clear(backgroundColour);
+	LCD_DisplayString(40,65,str,&Font24,LCD_BACKGROUND,markedItemColour);
+	LCD_DisplayString(85,65,"%",&Font24,LCD_BACKGROUND,markedItemColour);
+	if(ToEncdrSW==1){
+					fill_percentage=encoder_position;
+					LCD_Clear(backgroundColour);
 					activeMenu=3;
 					ToEncdrSW=0;
 				}
 
 	HAL_Delay(500);
+}
+/**
+ * activeMenu==12
+ */
+void makeingMixScreen(){
+	LCD_DisplayString(10,20,"Makeing your drink",&Font8,LCD_BACKGROUND,otherItemColour);
+	errorControl();
+	//dodac funkcje do nalewania
+	HAL_Delay(5000);
+	LCD_Clear(backgroundColour);
+	activeMenu=0;
+
 }
 
 void setCupFillScreen(){
@@ -382,13 +449,13 @@ void menu_display(){
 		setConcentrationScreen();
 			break;
 	case 10:
-
+		mixScreen2();
 			break;
 	case 11:
-
+		setFillPercentageScreen();
 			break;
 	case 12:
-
+		makeingMixScreen();
 			break;
 	case 13:
 
