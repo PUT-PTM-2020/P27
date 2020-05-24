@@ -46,11 +46,11 @@ void setToEncdrSW(){
 void startingScreen(){
 
 	if(encoder_position<10 || (encoder_position>=50 && encoder_position<60)){
-	LCD_DisplayString(10,20,"Pour juice",&Font12,LCD_BACKGROUND,markedItemColour);
-	LCD_DisplayString(10,40,"Pour water",&Font12,LCD_BACKGROUND,otherItemColour);
-	LCD_DisplayString(10,60,"Mix",&Font12,LCD_BACKGROUND,otherItemColour);
-	LCD_DisplayString(10,80,"Settings",&Font12,LCD_BACKGROUND,otherItemColour);
-	LCD_DisplayString(10,100,"Programist",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,20,"POUR JUICE",&Font12,LCD_BACKGROUND,markedItemColour);
+	LCD_DisplayString(10,40,"POUR WATER",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,60,"MIX",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,80,"SETTINGS",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,100,"PROGRAMIST",&Font12,LCD_BACKGROUND,otherItemColour);
 	if(ToEncdrSW==1){
 		ToEncdrSW=0;
 		LCD_Clear(backgroundColour);
@@ -58,11 +58,11 @@ void startingScreen(){
 	}
 	}else if((encoder_position>=10 && encoder_position<20) ||
 			(encoder_position>=60 && encoder_position<70)){
-		LCD_DisplayString(10,20,"Pour juice",&Font12,LCD_BACKGROUND,otherItemColour);
-		LCD_DisplayString(10,40,"Pour water",&Font12,LCD_BACKGROUND,markedItemColour);
-		LCD_DisplayString(10,60,"Mix",&Font12,LCD_BACKGROUND,otherItemColour);
-		LCD_DisplayString(10,80,"Settings",&Font12,LCD_BACKGROUND,otherItemColour);
-		LCD_DisplayString(10,100,"Programist",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,20,"POUR JUICE",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,40,"POUR WATER",&Font12,LCD_BACKGROUND,markedItemColour);
+		LCD_DisplayString(10,60,"MIX",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,80,"SETTINGS",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,100,"PROGRAMIST",&Font12,LCD_BACKGROUND,otherItemColour);
 		if(ToEncdrSW==1){
 						ToEncdrSW=0;
 						LCD_Clear(backgroundColour);
@@ -72,11 +72,11 @@ void startingScreen(){
 		}else if((encoder_position>=20 && encoder_position<30) ||
 				(encoder_position>=70 && encoder_position<80)){
 
-	LCD_DisplayString(10,20,"Pour juice",&Font12,LCD_BACKGROUND,otherItemColour);
-	LCD_DisplayString(10,40,"Pour water",&Font12,LCD_BACKGROUND,otherItemColour);
-	LCD_DisplayString(10,60,"Mix",&Font12,LCD_BACKGROUND,markedItemColour);
-	LCD_DisplayString(10,80,"Settings",&Font12,LCD_BACKGROUND,otherItemColour);
-	LCD_DisplayString(10,100,"Programist",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,20,"POUR JUICE",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,40,"POUR WATER",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,60,"MIX",&Font12,LCD_BACKGROUND,markedItemColour);
+	LCD_DisplayString(10,80,"SETTINGS",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,100,"PROGRAMIST",&Font12,LCD_BACKGROUND,otherItemColour);
 	if(ToEncdrSW==1){
 		ToEncdrSW=0;
 		LCD_Clear(backgroundColour);
@@ -85,11 +85,11 @@ void startingScreen(){
 
 		}else if((encoder_position>=30 && encoder_position<40) ||
 				(encoder_position>=80 && encoder_position<90)){
-	LCD_DisplayString(10,20,"Pour juice",&Font12,LCD_BACKGROUND,otherItemColour);
-	LCD_DisplayString(10,40,"Pour water",&Font12,LCD_BACKGROUND,otherItemColour);
-	LCD_DisplayString(10,60,"Mix",&Font12,LCD_BACKGROUND,otherItemColour);
-	LCD_DisplayString(10,80,"Settings",&Font12,LCD_BACKGROUND,markedItemColour);
-	LCD_DisplayString(10,100,"Programist",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,20,"POUR JUICE",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,40,"POUR WATER",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,60,"MIX",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,80,"SETTINGS",&Font12,LCD_BACKGROUND,markedItemColour);
+	LCD_DisplayString(10,100,"PROGRAMIST",&Font12,LCD_BACKGROUND,otherItemColour);
 	if(ToEncdrSW==1){
 		ToEncdrSW=0;
 					LCD_Clear(backgroundColour);
@@ -97,11 +97,11 @@ void startingScreen(){
 		}
 
 		}else{
-	LCD_DisplayString(10,20,"Pour juice",&Font12,LCD_BACKGROUND,otherItemColour);
-	LCD_DisplayString(10,40,"Pour water",&Font12,LCD_BACKGROUND,otherItemColour);
-	LCD_DisplayString(10,60,"Mix",&Font12,LCD_BACKGROUND,otherItemColour);
-	LCD_DisplayString(10,80,"Settings",&Font12,LCD_BACKGROUND,otherItemColour);
-	LCD_DisplayString(10,100,"Programist",&Font12,LCD_BACKGROUND,markedItemColour);
+	LCD_DisplayString(10,20,"POUR JUICE",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,40,"POUR WATER",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,60,"MIX",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,80,"SETTINGS",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,100,"PROGRAMIST",&Font12,LCD_BACKGROUND,markedItemColour);
 	if(ToEncdrSW==1){
 			ToEncdrSW=0;
 			LCD_Clear(backgroundColour);
@@ -152,9 +152,10 @@ void pourWaterScreen(){
 void mixScreen(){
 	if(encoder_position<10 || (encoder_position >=30 && encoder_position<40) ||
 			(encoder_position>=60 && encoder_position<70) || encoder_position>90 ){
-	LCD_DisplayString(10,20,"Set concentration",&Font8,LCD_BACKGROUND,markedItemColour);
-	LCD_DisplayString(10,40,"Next",&Font8,LCD_BACKGROUND,otherItemColour);
-	LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,otherItemColour);
+	   LCD_DisplayString(10,20,"     SET   ",&Font12,LCD_BACKGROUND,markedItemColour);
+	   LCD_DisplayString(10,30," CONCENTRATION",&Font12,LCD_BACKGROUND,markedItemColour);
+	   LCD_DisplayString(10,60,"     NEXT",&Font12,LCD_BACKGROUND,otherItemColour);
+	   LCD_DisplayString(10,80,"     BACK",&Font12,LCD_BACKGROUND,otherItemColour);
 	if(ToEncdrSW==1){
 			LCD_Clear(backgroundColour);
 			activeMenu=9;
@@ -162,18 +163,20 @@ void mixScreen(){
 		}
 	}else if((encoder_position>=10 && encoder_position <20) || (encoder_position>=40 && encoder_position<50)||
 			(encoder_position>=70 && encoder_position<80)){
-		LCD_DisplayString(10,20,"Set concentration",&Font8,LCD_BACKGROUND,otherItemColour);
-			LCD_DisplayString(10,40,"Next",&Font8,LCD_BACKGROUND,markedItemColour);
-			LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,20,"     SET   ",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,30," CONCENTRATION",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,60,"     NEXT",&Font12,LCD_BACKGROUND,markedItemColour);
+		LCD_DisplayString(10,80,"     BACK",&Font12,LCD_BACKGROUND,otherItemColour);
 			if(ToEncdrSW==1){
 					LCD_Clear(backgroundColour);
 					activeMenu=10;
 					ToEncdrSW=0;
 				}
 	}else{
-		LCD_DisplayString(10,20,"Set concentration",&Font8,LCD_BACKGROUND,otherItemColour);
-		LCD_DisplayString(10,40,"Next",&Font8,LCD_BACKGROUND,otherItemColour);
-		LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,markedItemColour);
+		LCD_DisplayString(10,20,"     SET   ",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,30," CONCENTRATION",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,60,"     NEXT",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,80,"     BACK",&Font12,LCD_BACKGROUND,markedItemColour);
 		returnToStartingScreen();
 	}
 
@@ -184,9 +187,10 @@ void mixScreen(){
 void mixScreen2(){
 	if(encoder_position<10 || (encoder_position >=30 && encoder_position<40) ||
 			(encoder_position>=60 && encoder_position<70) || encoder_position>90 ){
-	LCD_DisplayString(10,20,"Set fill percentage",&Font8,LCD_BACKGROUND,markedItemColour);
-	LCD_DisplayString(10,40,"Next",&Font8,LCD_BACKGROUND,otherItemColour);
-	LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,20,"   SET FILL",&Font12,LCD_BACKGROUND,markedItemColour);
+		LCD_DisplayString(10,40,"  PERCENTAGE",&Font12,LCD_BACKGROUND,markedItemColour);
+	LCD_DisplayString(10,60,"     NEXT",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,80,"     BACK",&Font12,LCD_BACKGROUND,otherItemColour);
 	if(ToEncdrSW==1){
 			LCD_Clear(backgroundColour);
 			activeMenu=11;
@@ -194,21 +198,23 @@ void mixScreen2(){
 		}
 	}else if((encoder_position>=10 && encoder_position <20) || (encoder_position>=40 && encoder_position<50)||
 			(encoder_position>=70 && encoder_position<80)){
-		LCD_DisplayString(10,20,"Set fill percentage",&Font8,LCD_BACKGROUND,otherItemColour);
-			LCD_DisplayString(10,40,"Next",&Font8,LCD_BACKGROUND,markedItemColour);
-			LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,otherItemColour);
+			LCD_DisplayString(10,20,"   SET FILL",&Font12,LCD_BACKGROUND,otherItemColour);
+			LCD_DisplayString(10,40,"  PERCENTAGE",&Font12,LCD_BACKGROUND,otherItemColour);
+			LCD_DisplayString(10,60,"     NEXT",&Font12,LCD_BACKGROUND,markedItemColour);
+			LCD_DisplayString(10,80,"     BACK",&Font12,LCD_BACKGROUND,otherItemColour);
 			if(ToEncdrSW==1){
 					LCD_Clear(backgroundColour);
 					activeMenu=12;
 					ToEncdrSW=0;
 				}
 	}else{
-		LCD_DisplayString(10,20,"Set fill percentage",&Font8,LCD_BACKGROUND,otherItemColour);
-		LCD_DisplayString(10,40,"Next",&Font8,LCD_BACKGROUND,otherItemColour);
-		LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,markedItemColour);
+		LCD_DisplayString(10,20,"   SET FILL",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,40,"  PERCENTAGE",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,60,"     NEXT",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,80,"     BACK",&Font12,LCD_BACKGROUND,markedItemColour);
 		if(ToEncdrSW==1){
 						LCD_Clear(backgroundColour);
-						activeMenu=12;
+						activeMenu=3;
 						ToEncdrSW=0;
 					}
 	}
@@ -228,7 +234,7 @@ void setConcentrationScreen(){
 	if(ToEncdrSW==1){
 					concentration_percentage=encoder_position;
 					LCD_Clear(backgroundColour);
-					activeMenu=10;
+					activeMenu=3;
 					ToEncdrSW=0;
 				}
 
@@ -247,7 +253,7 @@ void setFillPercentageScreen(){
 	if(ToEncdrSW==1){
 					fill_percentage=encoder_position;
 					LCD_Clear(backgroundColour);
-					activeMenu=3;
+					activeMenu=10;
 					ToEncdrSW=0;
 				}
 
@@ -257,7 +263,8 @@ void setFillPercentageScreen(){
  * activeMenu==12
  */
 void makeingMixScreen(){
-	LCD_DisplayString(10,20,"Makeing your drink",&Font8,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,20,"MAKEING YOUR",&Font12,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,40,"  DRINK",&Font12,LCD_BACKGROUND,otherItemColour);
 	errorControl();
 	//dodac funkcje do nalewania
 	HAL_Delay(5000);
@@ -266,26 +273,21 @@ void makeingMixScreen(){
 
 }
 
-void setCupFillScreen(){
-	LCD_DisplayString(10,20,"Set fill percentage",&Font8,LCD_BACKGROUND,otherItemColour);
-	LCD_DrawRectangle(0,40,sLCD_DIS.LCD_Dis_Column/5,60,otherItemColour, DRAW_FULL, DOT_PIXEL_1X1);
-	LCD_DrawRectangle(0,40,sLCD_DIS.LCD_Dis_Column,60,otherItemColour, DRAW_EMPTY, DOT_PIXEL_1X1);
-	LCD_DisplayString(10,80,"20%",&Font12,LCD_BACKGROUND,otherItemColour);
-}
+
 /**
  * activeMenu==7
  */
 void movedCupErrorScreen(){
-	LCD_DisplayString(10,20,"THERE IS",&Font16,LCD_BACKGROUND,markedItemColour);
-	LCD_DisplayString(10,35,"NO CUP",&Font16,LCD_BACKGROUND,markedItemColour);
+	LCD_DisplayString(10,20,"THERE IS",&Font12,LCD_BACKGROUND,markedItemColour);
+	LCD_DisplayString(10,35,"NO CUP",&Font12,LCD_BACKGROUND,markedItemColour);
 	returnToStartingScreen();
 }
 /**
  * activeMenu==8
  */
 void emptyTankScreen(){
-	LCD_DisplayString(10,20,"THERE IS",&Font16,LCD_BACKGROUND,markedItemColour);
-	LCD_DisplayString(10,40,"NO LIQUID ",&Font16,LCD_BACKGROUND,markedItemColour);
+	LCD_DisplayString(10,20,"THERE IS",&Font12,LCD_BACKGROUND,markedItemColour);
+	LCD_DisplayString(10,40,"NO LIQUID ",&Font12,LCD_BACKGROUND,markedItemColour);
 	returnToStartingScreen();
 }
 /**
@@ -300,10 +302,10 @@ void errorControl(){
  * active menu==6
  */
 void programistScreen(){
-		LCD_DisplayString(10,20,"servo 70",&Font12,LCD_BACKGROUND,otherItemColour);
-		LCD_DisplayString(10,40,"cup distance 14",&Font12,LCD_BACKGROUND,otherItemColour);
-		LCD_DisplayString(10,60,"engine 1 true",&Font12,LCD_BACKGROUND,otherItemColour);
-		LCD_DisplayString(10,80,"engine 2 false",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,20,"SERVO 70",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,40,"CUP DISTANCE 14",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,60,"ENGINE 1 TRUE",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,80,"ENGINE 2 FALSE",&Font12,LCD_BACKGROUND,otherItemColour);
 		returnToStartingScreen();
 	}
 /**
@@ -314,16 +316,16 @@ void settingsScreen(){
 			 (encoder_position >=40 && encoder_position<50) ||
 			 (encoder_position >=60 && encoder_position<70) ||
 			 (encoder_position >=80 && encoder_position<90) ){
-	LCD_DisplayString(10,20,"MOTIVES",&Font16,LCD_BACKGROUND,markedItemColour);
-	LCD_DisplayString(10,40,"BACK ",&Font16,LCD_BACKGROUND,otherItemColour);
+	LCD_DisplayString(10,20,"MOTIVES",&Font12,LCD_BACKGROUND,markedItemColour);
+	LCD_DisplayString(10,40,"BACK ",&Font12,LCD_BACKGROUND,otherItemColour);
 	if(ToEncdrSW==1){
 					LCD_Clear(backgroundColour);
 					activeMenu=5;
 					ToEncdrSW=0;
 				}
 	}else{
-			LCD_DisplayString(10,20,"MOTIVES",&Font16,LCD_BACKGROUND,otherItemColour);
-			LCD_DisplayString(10,40,"BACK ",&Font16,LCD_BACKGROUND,markedItemColour);
+			LCD_DisplayString(10,20,"MOTIVES",&Font12,LCD_BACKGROUND,otherItemColour);
+			LCD_DisplayString(10,40,"BACK ",&Font12,LCD_BACKGROUND,markedItemColour);
 			returnToStartingScreen();
 	}
 }
@@ -336,7 +338,7 @@ void motivesScreen(){
 		LCD_DisplayString(10,40,"STYLE 2",&Font12,LCD_BACKGROUND,otherItemColour);
 		LCD_DisplayString(10,60,"STYLE 3",&Font12,LCD_BACKGROUND,otherItemColour);
 		LCD_DisplayString(10,80,"STYLE 4",&Font12,LCD_BACKGROUND,otherItemColour);
-		LCD_DisplayString(10,100,"BACK",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,100,"     BACK",&Font12,LCD_BACKGROUND,otherItemColour);
 		if(ToEncdrSW==1){
 			backgroundColour=BLACK;
 			markedItemColour=RED;
@@ -351,7 +353,7 @@ void motivesScreen(){
 			LCD_DisplayString(10,40,"STYLE 2",&Font12,LCD_BACKGROUND,markedItemColour);
 			LCD_DisplayString(10,60,"STYLE 3",&Font12,LCD_BACKGROUND,otherItemColour);
 			LCD_DisplayString(10,80,"STYLE 4",&Font12,LCD_BACKGROUND,otherItemColour);
-			LCD_DisplayString(10,100,"BACK",&Font12,LCD_BACKGROUND,otherItemColour);
+			LCD_DisplayString(10,100,"     BACK",&Font12,LCD_BACKGROUND,otherItemColour);
 			if(ToEncdrSW==1){
 				backgroundColour=WHITE;
 				markedItemColour=GREEN;
@@ -367,7 +369,7 @@ void motivesScreen(){
 		LCD_DisplayString(10,40,"STYLE 2",&Font12,LCD_BACKGROUND,otherItemColour);
 		LCD_DisplayString(10,60,"STYLE 3",&Font12,LCD_BACKGROUND,markedItemColour);
 		LCD_DisplayString(10,80,"STYLE 4",&Font12,LCD_BACKGROUND,otherItemColour);
-		LCD_DisplayString(10,100,"BACK",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,100,"     BACK",&Font12,LCD_BACKGROUND,otherItemColour);
 		if(ToEncdrSW==1){
 			backgroundColour=BLUE;
 			markedItemColour=RED;
@@ -383,7 +385,7 @@ void motivesScreen(){
 		LCD_DisplayString(10,40,"STYLE 2",&Font12,LCD_BACKGROUND,otherItemColour);
 		LCD_DisplayString(10,60,"STYLE 3",&Font12,LCD_BACKGROUND,otherItemColour);
 		LCD_DisplayString(10,80,"STYLE 4",&Font12,LCD_BACKGROUND,markedItemColour);
-		LCD_DisplayString(10,100,"BACK",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,100,"     BACK",&Font12,LCD_BACKGROUND,otherItemColour);
 		if(ToEncdrSW==1){
 			backgroundColour=WHITE;
 			markedItemColour=RED;
@@ -398,7 +400,7 @@ void motivesScreen(){
 		LCD_DisplayString(10,40,"STYLE 2",&Font12,LCD_BACKGROUND,otherItemColour);
 		LCD_DisplayString(10,60,"STYLE 3",&Font12,LCD_BACKGROUND,otherItemColour);
 		LCD_DisplayString(10,80,"STYLE 4",&Font12,LCD_BACKGROUND,otherItemColour);
-		LCD_DisplayString(10,100,"BACK",&Font12,LCD_BACKGROUND,markedItemColour);
+		LCD_DisplayString(10,100,"     BACK",&Font12,LCD_BACKGROUND,markedItemColour);
 		returnToStartingScreen();
 	}
 }

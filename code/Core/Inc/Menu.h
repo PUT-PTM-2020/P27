@@ -31,8 +31,6 @@ void setFillPercentageScreen();
 
 void makeingMixScreen();
 
-void setCupFillScreen(void);
-
 void setConcentrationScreen();
 
 void movedCupErrorScreen(void);
