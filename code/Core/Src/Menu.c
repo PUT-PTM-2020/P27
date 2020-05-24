@@ -101,7 +101,7 @@ void startingScreen(){
 	if(ToEncdrSW==1){
 			ToEncdrSW=0;
 			LCD_Clear(backgroundColour);
-			activeMenu=5;
+			activeMenu=6;
 		}
 }
 }
@@ -121,6 +121,8 @@ void pourJuiceScreen(){
 			ToEncdrSW=0;
 		}
 
+	errorControl();
+
 }
 /**
  * pouring juice screen
@@ -136,6 +138,7 @@ void pourWaterScreen(){
 			activeMenu=0;
 			ToEncdrSW=0;
 		}
+	errorControl();
 
 }
 /**
@@ -178,19 +181,33 @@ void setCupFillScreen(){
 	LCD_DrawRectangle(0,40,sLCD_DIS.LCD_Dis_Column,60,otherItemColour, DRAW_EMPTY, DOT_PIXEL_1X1);
 	LCD_DisplayString(10,80,"20%",&Font12,LCD_BACKGROUND,otherItemColour);
 }
-
+/**
+ * activeMenu==7
+ */
 void movedCupErrorScreen(){
 	LCD_DisplayString(10,20,"THERE IS",&Font16,LCD_BACKGROUND,markedItemColour);
 	LCD_DisplayString(10,35,"NO CUP",&Font16,LCD_BACKGROUND,markedItemColour);
 	returnToStartingScreen();
 }
-
+/**
+ * activeMenu==8
+ */
 void emptyTankScreen(){
 	LCD_DisplayString(10,20,"THERE IS",&Font16,LCD_BACKGROUND,markedItemColour);
 	LCD_DisplayString(10,40,"NO LIQUID ",&Font16,LCD_BACKGROUND,markedItemColour);
 	returnToStartingScreen();
 }
+/**
+ * function to control if there is any interruption
+ */
+void errorControl(){
+	//movedCupErrorScreen();
+	//emptyTankScreen();
+}
 
+/**
+ * active menu==6
+ */
 void programistScreen(){
 		LCD_DisplayString(10,20,"servo 70",&Font12,LCD_BACKGROUND,otherItemColour);
 		LCD_DisplayString(10,40,"cup distance 14",&Font12,LCD_BACKGROUND,otherItemColour);
@@ -329,13 +346,13 @@ void menu_display(){
 		motivesScreen();
 			break;
 	case 6:
-
+		programistScreen();
 			break;
 	case 7:
-
+		emptyTankScreen();
 			break;
 	case 8:
-
+		movedCupErrorScreen();
 			break;
 	case 9:
 

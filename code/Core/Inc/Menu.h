@@ -41,6 +41,8 @@ uint8_t get_activeListItem();
 
 void motivesScreen();
 
+void errorControl();
+
 void returnToStartingScreen();
 
 void menu_display();
