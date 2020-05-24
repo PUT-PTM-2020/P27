@@ -163,11 +163,7 @@ void mixScreen(){
 		LCD_DisplayString(10,20,"Set concentration",&Font8,LCD_BACKGROUND,BLUE);
 		LCD_DisplayString(10,40,"Next",&Font8,LCD_BACKGROUND,BLUE);
 		LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,RED);
-		if(ToEncdrSW==1){
-				LCD_Clear(WHITE);
-				activeMenu=0;
-				ToEncdrSW=0;
-			}
+		returnToStaringScreen();
 	}
 
 }
@@ -182,21 +178,13 @@ void setCupFillScreen(){
 void movedCupErrorScreen(){
 	LCD_DisplayString(10,20,"THERE IS",&Font16,LCD_BACKGROUND,RED);
 	LCD_DisplayString(10,35,"NO CUP",&Font16,LCD_BACKGROUND,RED);
-	if(ToEncdrSW==1){
-			LCD_Clear(WHITE);
-			activeMenu=0;
-			ToEncdrSW=0;
-		}
+	returnToStaringScreen();
 }
 
 void emptyTankScreen(){
 	LCD_DisplayString(10,20,"THERE IS",&Font16,LCD_BACKGROUND,RED);
 	LCD_DisplayString(10,40,"NO LIQUID ",&Font16,LCD_BACKGROUND,RED);
-	if(ToEncdrSW==1){
-			LCD_Clear(WHITE);
-			activeMenu=0;
-			ToEncdrSW=0;
-		}
+	returnToStaringScreen();
 }
 
 void programistScreen(){
@@ -204,6 +192,7 @@ void programistScreen(){
 		LCD_DisplayString(10,40,"cup distance 14",&Font12,LCD_BACKGROUND,BLUE);
 		LCD_DisplayString(10,60,"engine 1 true",&Font12,LCD_BACKGROUND,BLUE);
 		LCD_DisplayString(10,80,"engine 2 false",&Font12,LCD_BACKGROUND,BLUE);
+		returnToStaringScreen();
 	}
 
 uint8_t get_activeMenu(){
@@ -267,5 +256,16 @@ void menu_display(){
 
 			break;
 	}
+}
+
+/**
+ * if button is pressed -> activeMenu=0
+ */
+void returnToStaringScreen(){
+	if(ToEncdrSW==1){
+			LCD_Clear(WHITE);
+			activeMenu=0;
+			ToEncdrSW=0;
+		}
 }
 

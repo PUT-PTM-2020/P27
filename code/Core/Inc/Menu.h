@@ -37,6 +37,8 @@ uint8_t get_activeMenu();
 
 uint8_t get_activeListItem();
 
+void returnToStaringScreen();
+
 void menu_display();
 
 #endif /* INC_MENU_H_ */
