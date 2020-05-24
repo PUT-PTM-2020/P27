@@ -37,7 +37,7 @@ void setToEncdrSW(){
  */
 void startingScreen(){
 
-	if(encoder_position<=20){
+	if(encoder_position<10 || (encoder_position>=50 && encoder_position<60)){
 	LCD_DisplayString(10,20,"Pour juice",&Font12,LCD_BACKGROUND,RED);
 	LCD_DisplayString(10,40,"Pour water",&Font12,LCD_BACKGROUND,BLUE);
 	LCD_DisplayString(10,60,"Mix",&Font12,LCD_BACKGROUND,BLUE);
@@ -48,7 +48,8 @@ void startingScreen(){
 		LCD_Clear(WHITE);
 		activeMenu=1;
 	}
-	}else if(encoder_position>20 && encoder_position<=40){
+	}else if((encoder_position>=10 && encoder_position<20) ||
+			(encoder_position>=60 && encoder_position<70)){
 		LCD_DisplayString(10,20,"Pour juice",&Font12,LCD_BACKGROUND,BLUE);
 		LCD_DisplayString(10,40,"Pour water",&Font12,LCD_BACKGROUND,RED);
 		LCD_DisplayString(10,60,"Mix",&Font12,LCD_BACKGROUND,BLUE);
@@ -60,7 +61,8 @@ void startingScreen(){
 						activeMenu=2;
 			}
 
-		}else if(encoder_position>40 && encoder_position<=60){
+		}else if((encoder_position>=20 && encoder_position<30) ||
+				(encoder_position>=70 && encoder_position<80)){
 
 	LCD_DisplayString(10,20,"Pour juice",&Font12,LCD_BACKGROUND,BLUE);
 	LCD_DisplayString(10,40,"Pour water",&Font12,LCD_BACKGROUND,BLUE);
@@ -73,7 +75,8 @@ void startingScreen(){
 		activeMenu=3;
 		}
 
-		}else if(encoder_position>60 && encoder_position<=80){
+		}else if((encoder_position>=30 && encoder_position<40) ||
+				(encoder_position>=80 && encoder_position<90)){
 	LCD_DisplayString(10,20,"Pour juice",&Font12,LCD_BACKGROUND,BLUE);
 	LCD_DisplayString(10,40,"Pour water",&Font12,LCD_BACKGROUND,BLUE);
 	LCD_DisplayString(10,60,"Mix",&Font12,LCD_BACKGROUND,BLUE);
@@ -85,7 +88,7 @@ void startingScreen(){
 					activeMenu=4;
 		}
 
-		}else if(encoder_position>80){
+		}else{
 	LCD_DisplayString(10,20,"Pour juice",&Font12,LCD_BACKGROUND,BLUE);
 	LCD_DisplayString(10,40,"Pour water",&Font12,LCD_BACKGROUND,BLUE);
 	LCD_DisplayString(10,60,"Mix",&Font12,LCD_BACKGROUND,BLUE);
@@ -134,7 +137,8 @@ void pourWaterScreen(){
  * open when activeMenu==3
  */
 void mixScreen(){
-	if(encoder_position<=33){
+	if(encoder_position<10 || (encoder_position >=30 && encoder_position<40) ||
+			(encoder_position>=60 && encoder_position<70) || encoder_position>90 ){
 	LCD_DisplayString(10,20,"Set concentration",&Font8,LCD_BACKGROUND,RED);
 	LCD_DisplayString(10,40,"Next",&Font8,LCD_BACKGROUND,BLUE);
 	LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,BLUE);
@@ -143,7 +147,8 @@ void mixScreen(){
 			activeMenu=0;//nie zrobione
 			ToEncdrSW=0;
 		}
-	}else if(encoder_position>33&&encoder_position<=66){
+	}else if((encoder_position>=10 && encoder_position <20) || (encoder_position>=40 && encoder_position<50)||
+			(encoder_position>=70 && encoder_position<80)){
 		LCD_DisplayString(10,20,"Set concentration",&Font8,LCD_BACKGROUND,BLUE);
 			LCD_DisplayString(10,40,"Next",&Font8,LCD_BACKGROUND,RED);
 			LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,BLUE);
@@ -152,7 +157,7 @@ void mixScreen(){
 					activeMenu=0;//nie zrobioe
 					ToEncdrSW=0;
 				}
-	}else if(encoder_position>66){
+	}else{
 		LCD_DisplayString(10,20,"Set concentration",&Font8,LCD_BACKGROUND,BLUE);
 		LCD_DisplayString(10,40,"Next",&Font8,LCD_BACKGROUND,BLUE);
 		LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,RED);
