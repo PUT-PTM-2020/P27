@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include "main.h"
 
-
+//Menu
 volatile uint8_t activeMenu = 0;
 volatile uint8_t activeListItem = 0;
 
@@ -111,6 +111,7 @@ void pourJuiceScreen(){
 	LCD_DisplayString(10,40,"PRESS BUTTON",&Font12,LCD_BACKGROUND,BLUE);
 	LCD_DisplayString(10,60,"TO STOP",&Font12,LCD_BACKGROUND,BLUE);
 	if(ToEncdrSW==1){
+			//add function to stop pouring juice
 			LCD_Clear(WHITE);
 			activeMenu=0;
 			ToEncdrSW=0;
@@ -126,6 +127,7 @@ void pourWaterScreen(){
 	LCD_DisplayString(10,40,"PRESS BUTTON",&Font12,LCD_BACKGROUND,BLUE);
 	LCD_DisplayString(10,60,"TO STOP",&Font12,LCD_BACKGROUND,BLUE);
 	if(ToEncdrSW==1){
+		//add function to stop pouring water
 			LCD_Clear(WHITE);
 			activeMenu=0;
 			ToEncdrSW=0;
@@ -180,11 +182,21 @@ void setCupFillScreen(){
 void movedCupErrorScreen(){
 	LCD_DisplayString(10,20,"THERE IS",&Font16,LCD_BACKGROUND,RED);
 	LCD_DisplayString(10,35,"NO CUP",&Font16,LCD_BACKGROUND,RED);
+	if(ToEncdrSW==1){
+			LCD_Clear(WHITE);
+			activeMenu=0;
+			ToEncdrSW=0;
+		}
 }
 
 void emptyTankScreen(){
 	LCD_DisplayString(10,20,"THERE IS",&Font16,LCD_BACKGROUND,RED);
 	LCD_DisplayString(10,40,"NO LIQUID ",&Font16,LCD_BACKGROUND,RED);
+	if(ToEncdrSW==1){
+			LCD_Clear(WHITE);
+			activeMenu=0;
+			ToEncdrSW=0;
+		}
 }
 
 void programistScreen(){
@@ -201,3 +213,59 @@ uint8_t get_activeMenu(){
 uint8_t get_activeListItem(){
 	return activeListItem;
 }
+
+
+/**
+ * function to control menu states
+ */
+void menu_display(){
+
+	switch(activeMenu){
+	case 0:
+		startingScreen();
+			break;
+	case 1:
+		pourJuiceScreen();
+			break;
+	case 2:
+		pourWaterScreen();
+			break;
+	case 3:
+		mixScreen();
+			break;
+	case 4:
+
+			break;
+	case 5:
+
+			break;
+	case 6:
+
+			break;
+	case 7:
+
+			break;
+	case 8:
+
+			break;
+	case 9:
+
+			break;
+	case 10:
+
+			break;
+	case 11:
+
+			break;
+	case 12:
+
+			break;
+	case 13:
+
+			break;
+	default:
+
+			break;
+	}
+}
+

@@ -99,23 +99,6 @@ void init_lcd() {
   Driver_Delay_ms(1000);
 }
 
-void menu_display(){
-	if(get_activeMenu() == 0){
-		startingScreen();
-	}else if(get_activeMenu() == 1){
-		pourJuiceScreen();
-	}else if(get_activeMenu()  == 2){
-		pourWaterScreen();
-	}else if(get_activeMenu()  == 3){
-		mixScreen();
-	}else if(get_activeMenu()  == 4){
-
-	}
-}
-
-
-
-
 
 
 /* USER CODE END 0 */
