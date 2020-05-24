@@ -33,11 +33,13 @@ void emptyTankScreen(void);
 
 void programistScreen(void);
 
+void settingsScreen();
+
 uint8_t get_activeMenu();
 
 uint8_t get_activeListItem();
 
-void returnToStaringScreen();
+void returnToStartingScreen();
 
 void menu_display();
 
