@@ -27,6 +27,8 @@ void mixScreen(void);
 
 void setCupFillScreen(void);
 
+void setConcentrationScreen();
+
 void movedCupErrorScreen(void);
 
 void emptyTankScreen(void);

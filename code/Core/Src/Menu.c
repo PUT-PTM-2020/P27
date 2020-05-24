@@ -21,6 +21,10 @@ volatile COLOR backgroundColour = WHITE; //kolor tła
 volatile COLOR markedItemColour = RED; // kolor wybranej opcji
 volatile COLOR otherItemColour = BLACK; //kolor pozostałych opcji
 
+// Drink
+volatile uint16_t concentration_percentage=0;
+volatile uint16_t fill_percentage=0;
+
 // Encoder
 volatile uint16_t pulse_count; // impulse counter
 volatile uint16_t encoder_position; // position counter licznik przekreconych pozycji
@@ -153,7 +157,7 @@ void mixScreen(){
 	LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,otherItemColour);
 	if(ToEncdrSW==1){
 			LCD_Clear(backgroundColour);
-			activeMenu=0;//nie zrobione
+			activeMenu=9;
 			ToEncdrSW=0;
 		}
 	}else if((encoder_position>=10 && encoder_position <20) || (encoder_position>=40 && encoder_position<50)||
@@ -163,7 +167,7 @@ void mixScreen(){
 			LCD_DisplayString(10,60,"Back",&Font8,LCD_BACKGROUND,otherItemColour);
 			if(ToEncdrSW==1){
 					LCD_Clear(backgroundColour);
-					activeMenu=0;//nie zrobioe
+					activeMenu=10;
 					ToEncdrSW=0;
 				}
 	}else{
@@ -173,6 +177,26 @@ void mixScreen(){
 		returnToStartingScreen();
 	}
 
+}
+
+/**
+ * activeMenu==9
+ */
+void setConcentrationScreen(){
+
+	char str[16];
+	itoa (encoder_position,str,10);
+	LCD_Clear(backgroundColour);
+	LCD_DisplayString(40,65,str,&Font24,LCD_BACKGROUND,markedItemColour);
+	LCD_DisplayString(85,65,"%",&Font24,LCD_BACKGROUND,markedItemColour);
+	if(ToEncdrSW==1){
+					concentration_percentage=encoder_position;
+					LCD_Clear(backgroundColour);
+					activeMenu=3;
+					ToEncdrSW=0;
+				}
+
+	HAL_Delay(500);
 }
 
 void setCupFillScreen(){
@@ -355,7 +379,7 @@ void menu_display(){
 		movedCupErrorScreen();
 			break;
 	case 9:
-
+		setConcentrationScreen();
 			break;
 	case 10:
 
