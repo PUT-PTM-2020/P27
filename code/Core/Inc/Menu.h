@@ -55,4 +55,8 @@ void returnToStartingScreen();
 
 void menu_display();
 
+uint16_t getConcentration_percentage();
+
+uint16_t getFill_percentage();
+
 #endif /* INC_MENU_H_ */

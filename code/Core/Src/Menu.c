@@ -477,3 +477,11 @@ void returnToStartingScreen(){
 		}
 }
 
+uint16_t getConcentration_percentage(){
+	return concentration_percentage;
+}
+
+uint16_t getFill_percentage(){
+	return fill_percentage;
+}
+
