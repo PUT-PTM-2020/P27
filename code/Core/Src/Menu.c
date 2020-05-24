@@ -19,7 +19,7 @@ volatile uint8_t activeListItem = 0;
 
 volatile COLOR backgroundColour = WHITE; //kolor tła
 volatile COLOR markedItemColour = RED; // kolor wybranej opcji
-volatile COLOR otherItemColour = BLUE; //kolor pozostałych opcji
+volatile COLOR otherItemColour = BLACK; //kolor pozostałych opcji
 
 // Encoder
 volatile uint16_t pulse_count; // impulse counter
@@ -208,10 +208,90 @@ void settingsScreen(){
 			 (encoder_position >=80 && encoder_position<90) ){
 	LCD_DisplayString(10,20,"MOTIVES",&Font16,LCD_BACKGROUND,markedItemColour);
 	LCD_DisplayString(10,40,"BACK ",&Font16,LCD_BACKGROUND,otherItemColour);
+	if(ToEncdrSW==1){
+					LCD_Clear(backgroundColour);
+					activeMenu=5;
+					ToEncdrSW=0;
+				}
 	}else{
 			LCD_DisplayString(10,20,"MOTIVES",&Font16,LCD_BACKGROUND,otherItemColour);
 			LCD_DisplayString(10,40,"BACK ",&Font16,LCD_BACKGROUND,markedItemColour);
 			returnToStartingScreen();
+	}
+}
+/**
+ * when activeMenu==5
+ */
+void motivesScreen(){
+	if(encoder_position<10 || (encoder_position>=50 && encoder_position<60)){
+		LCD_DisplayString(10,20,"STYLE 1",&Font12,LCD_BACKGROUND,markedItemColour);
+		LCD_DisplayString(10,40,"STYLE 2",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,60,"STYLE 3",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,80,"STYLE 4",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,100,"BACK",&Font12,LCD_BACKGROUND,otherItemColour);
+		if(ToEncdrSW==1){
+			backgroundColour=BLACK;
+			markedItemColour=RED;
+			otherItemColour=WHITE;
+			ToEncdrSW=0;
+			LCD_Clear(backgroundColour);
+
+		}
+		}else if((encoder_position>=10 && encoder_position<20) ||
+				(encoder_position>=60 && encoder_position<70)){
+			LCD_DisplayString(10,20,"STYLE 1",&Font12,LCD_BACKGROUND,otherItemColour);
+			LCD_DisplayString(10,40,"STYLE 2",&Font12,LCD_BACKGROUND,markedItemColour);
+			LCD_DisplayString(10,60,"STYLE 3",&Font12,LCD_BACKGROUND,otherItemColour);
+			LCD_DisplayString(10,80,"STYLE 4",&Font12,LCD_BACKGROUND,otherItemColour);
+			LCD_DisplayString(10,100,"BACK",&Font12,LCD_BACKGROUND,otherItemColour);
+			if(ToEncdrSW==1){
+				backgroundColour=WHITE;
+				markedItemColour=GREEN;
+				otherItemColour=BLACK;
+				ToEncdrSW=0;
+				LCD_Clear(backgroundColour);
+				}
+
+			}else if((encoder_position>=20 && encoder_position<30) ||
+					(encoder_position>=70 && encoder_position<80)){
+
+		LCD_DisplayString(10,20,"STYLE 1",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,40,"STYLE 2",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,60,"STYLE 3",&Font12,LCD_BACKGROUND,markedItemColour);
+		LCD_DisplayString(10,80,"STYLE 4",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,100,"BACK",&Font12,LCD_BACKGROUND,otherItemColour);
+		if(ToEncdrSW==1){
+			backgroundColour=BLUE;
+			markedItemColour=RED;
+			otherItemColour=YELLOW;
+			ToEncdrSW=0;
+			LCD_Clear(backgroundColour);
+
+			}
+
+			}else if((encoder_position>=30 && encoder_position<40) ||
+					(encoder_position>=80 && encoder_position<90)){
+		LCD_DisplayString(10,20,"STYLE 1",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,40,"STYLE 2",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,60,"STYLE 3",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,80,"STYLE 4",&Font12,LCD_BACKGROUND,markedItemColour);
+		LCD_DisplayString(10,100,"BACK",&Font12,LCD_BACKGROUND,otherItemColour);
+		if(ToEncdrSW==1){
+			backgroundColour=WHITE;
+			markedItemColour=RED;
+			otherItemColour=BLACK;
+			ToEncdrSW=0;
+			LCD_Clear(backgroundColour);
+
+			}
+
+			}else{
+		LCD_DisplayString(10,20,"STYLE 1",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,40,"STYLE 2",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,60,"STYLE 3",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,80,"STYLE 4",&Font12,LCD_BACKGROUND,otherItemColour);
+		LCD_DisplayString(10,100,"BACK",&Font12,LCD_BACKGROUND,markedItemColour);
+		returnToStartingScreen();
 	}
 }
 
@@ -246,7 +326,7 @@ void menu_display(){
 		settingsScreen();
 			break;
 	case 5:
-
+		motivesScreen();
 			break;
 	case 6:
 

@@ -82,25 +82,6 @@ uint8_t VhvSettings;
 uint8_t PhaseCal;
 uint16_t milimeters = 0;
 
-void init_lcd() {
-  // Initialize
-  LCD_SCAN_DIR Lcd_ScanDir = SCAN_DIR_DFT;
-  LCD_Init( Lcd_ScanDir );
-
-  // Run LCD test
-  //LCD_Show();
-  //startingScreen();
-  //setConcentrationScreen();
-  //setCupFillScreen();
-  //movedCupErrorScreen();
-  //emptyTankScreen();
-  programistScreen();
-
-  Driver_Delay_ms(1000);
-}
-
-
-
 /* USER CODE END 0 */
 
 /**
