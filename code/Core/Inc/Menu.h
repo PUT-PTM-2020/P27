@@ -15,23 +15,23 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 void encoder(void);
 
-void setToEncdrSW();
+void setToEncdrSW(void);
 
-void startingScreen();
+void startingScreen(void);
 
-void pourJuiceScreen();
+void pourJuiceScreen(void);
 
-void pourWaterScreen();
+void pourWaterScreen(void);
 
 void mixScreen(void);
 
-void mixScreen2();
+void mixScreen2(void);
 
-void setFillPercentageScreen();
+void setFillPercentageScreen(void);
 
-void makeingMixScreen();
+void makeingMixScreen(void);
 
-void setConcentrationScreen();
+void setConcentrationScreen(void);
 
 void movedCupErrorScreen(void);
 
@@ -39,19 +39,19 @@ void emptyTankScreen(void);
 
 void programistScreen(void);
 
-void settingsScreen();
+void settingsScreen(void);
 
 uint8_t get_activeMenu();
 
 uint8_t get_activeListItem();
 
-void motivesScreen();
+void motivesScreen(void);
 
-void errorControl();
+void errorControl(void);
 
-void returnToStartingScreen();
+void returnToStartingScreen(void);
 
-void menu_display();
+void menu_display(void);
 
 uint16_t getConcentration_percentage();
 

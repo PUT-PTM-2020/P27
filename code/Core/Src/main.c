@@ -163,7 +163,7 @@ int main(void)
 
   while (1)
   {
-	  encoder();
+
 	  menu_display();
 
     if(TofDataRead == 1)
