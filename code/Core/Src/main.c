@@ -64,8 +64,6 @@ VL53L0X_DEV Dev = &vl53l0x_c;
 volatile uint8_t TofDataRead;
 
 
-
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -116,7 +114,12 @@ int main(void)
   MX_I2C1_Init();
   MX_TIM4_Init();
   MX_TIM1_Init();
+  MX_TIM13_Init();
   /* USER CODE BEGIN 2 */
+  // Start servo's PWM
+  HAL_TIM_PWM_Start(&htim13, TIM_CHANNEL_1);
+
+  // Start TIM4 for L293D
   HAL_TIM_Base_Start_IT(&htim4);
 
   // Start encoder channels
