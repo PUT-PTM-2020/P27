@@ -13,6 +13,6 @@
 
 #define STEP ((1000 * (PWM_MAX - PWM_MIN)) / (ANGLE_MAX - ANGLE_MIN))
 
-void Servo_set_angle(uint16_t angle, uint8_t mode);
+void servo_set_angle(uint16_t angle, uint8_t mode);
 
 #endif /* INC_SERVO_H_ */

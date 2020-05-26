@@ -169,10 +169,10 @@ int main(void)
   {
 
 	  menu_display();
-    Servo_set_angle(0, 0);
+	  servo_set_angle(0, 0);
     HAL_Delay(5000);
 
-    Servo_set_angle(900, 0);
+    servo_set_angle(900, 0);
     HAL_Delay(5000);
 
     if(TofDataRead == 1)
