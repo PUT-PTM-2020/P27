@@ -32,6 +32,7 @@
 // LED screen
 #include "ST7735S_dev_config.h"
 #include "Menu.h"
+#include "Servo.h"
 
 // Distance sensor
 #include "vl53l0x_api.h"
@@ -168,6 +169,11 @@ int main(void)
   {
 
 	  menu_display();
+    Servo_set_angle(0, 0);
+    HAL_Delay(5000);
+
+    Servo_set_angle(900, 0);
+    HAL_Delay(5000);
 
     if(TofDataRead == 1)
     {
