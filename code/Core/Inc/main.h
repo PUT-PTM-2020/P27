@@ -73,8 +73,10 @@ void Error_Handler(void);
 #define ENCDR_SW_Pin GPIO_PIN_12
 #define ENCDR_SW_GPIO_Port GPIOB
 #define ENCDR_SW_EXTI_IRQn EXTI15_10_IRQn
-#define L293D_PWM_Pin GPIO_PIN_12
-#define L293D_PWM_GPIO_Port GPIOD
+#define L293D_PWM_1_Pin GPIO_PIN_12
+#define L293D_PWM_1_GPIO_Port GPIOD
+#define L293D_PWM_2_Pin GPIO_PIN_13
+#define L293D_PWM_2_GPIO_Port GPIOD
 #define LCD_BL_Pin GPIO_PIN_7
 #define LCD_BL_GPIO_Port GPIOC
 #define LCD_DC_Pin GPIO_PIN_8
