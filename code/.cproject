@@ -47,8 +47,8 @@
 									<listOptionValue builtIn="false" value="../Lib/ST7735S/Inc"/>
 									<listOptionValue builtIn="false" value="../Lib/VL53L0X/platform/inc"/>
 									<listOptionValue builtIn="false" value="../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy"/>
-									<listOptionValue builtIn="false" value="../Lib/VL53L0X/core/inc"/>
 									<listOptionValue builtIn="false" value="../Lib/Servo/Inc"/>
+									<listOptionValue builtIn="false" value="../Lib/VL53L0X/core/inc"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.420615818" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
 							</tool>
@@ -78,11 +78,11 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Lib/ST7735S"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Lib/Servo"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Lib/VL53L0X"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Lib/ST7735S"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

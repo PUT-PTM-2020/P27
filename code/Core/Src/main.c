@@ -113,15 +113,15 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   MX_I2C1_Init();
-  MX_TIM4_Init();
   MX_TIM1_Init();
+  MX_TIM12_Init();
   MX_TIM13_Init();
   /* USER CODE BEGIN 2 */
   // Start servo's PWM
   HAL_TIM_PWM_Start(&htim13, TIM_CHANNEL_1);
 
   // Start TIM4 for L293D
-  HAL_TIM_Base_Start_IT(&htim4);
+  HAL_TIM_Base_Start_IT(&htim12);
 
   // Start encoder channels
   HAL_TIM_Encoder_Start(&htim1, TIM_CHANNEL_ALL);
@@ -256,7 +256,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-  if(htim->Instance == TIM4)
+  if(htim->Instance == TIM12)
   {
     // Handle pump timer if needed
   }
