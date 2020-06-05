@@ -16,11 +16,11 @@ void servo_set_angle(uint16_t angle, uint8_t mode)
 
 	if(mode)
 	{
-		val = PWM_MIN + ((angle - ANGLE_MIN) * STEP) / 1000;
+    val = PWM_MAX - ((angle - ANGLE_MIN) * STEP) / 1000;
 	}
 	else
 	{
-		val = PWM_MAX - ((angle - ANGLE_MIN) * STEP) / 1000;
+    val = PWM_MIN + ((angle - ANGLE_MIN) * STEP) / 1000;
 	}
 
 	__HAL_TIM_SET_COMPARE(&TIM_NO, TIM_CH_NO, val);
