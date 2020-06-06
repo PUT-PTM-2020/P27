@@ -170,11 +170,11 @@ void menu_refresh(void) {
         temp->name,
         & Font12,
         BLACK,
-        temp == currentPointer ? BLUE : WHITE
+        temp == currentPointer ? WHITE : LIGHTGRAY
             );
 
     if(temp == currentPointer)
-      LCD_DisplayString( 5, (i + 1) * menu_item_padding + i * menu_item_height, ">", & Font12, BLACK, BLUE);
+      LCD_DisplayString( 5, (i + 1) * menu_item_padding + i * menu_item_height, ">", & Font12, BLACK, WHITE);
 
     temp = temp->next;
     if (!temp)

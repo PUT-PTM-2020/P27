@@ -126,6 +126,7 @@ function:
 #define BROWN 		   0XBC40 
 #define BRRED 		   0XFC07 
 #define GRAY  		   0X8430 
+#define LIGHTGRAY    0xD6BA
 
 /********************************************************************************
 function:	
