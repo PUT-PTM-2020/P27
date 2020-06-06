@@ -29,8 +29,10 @@
 /* USER CODE BEGIN Includes */
 #include <string.h>
 
-// LED screen
+// Servo
 #include "Servo.h"
+
+// LED screen
 #include "lcd_menu.h"
 
 // Distance sensor

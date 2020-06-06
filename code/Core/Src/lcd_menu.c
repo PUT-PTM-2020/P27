@@ -18,9 +18,6 @@ menu_t menu3 = { "Debug", NULL, &menu2, NULL, NULL, NULL }; // TODO
 
 menu_t *currentPointer = &menu1;
 
-COLOR bg_color = BLACK;
-COLOR font_color = WHITE;
-
 void menu_init(uint8_t padding, uint8_t fontSize) {
   LCD_SCAN_DIR Lcd_ScanDir = SCAN_DIR_DFT;
   LCD_Init( Lcd_ScanDir );
@@ -30,20 +27,23 @@ void menu_init(uint8_t padding, uint8_t fontSize) {
 
   menu_rows = LCD_HEIGHT / (menu_item_padding + menu_item_height);
 
+  LCD_Clear(BLACK);
   menu_refresh();
 }
 
 void menu_update(void) {
 
   encoder_position_current = __HAL_TIM_GET_COUNTER(&htim1) / 2;
-  if(encoder_position_current == 19 && encoder_position_previous == 0)
+
+  if(encoder_position_current == 0 && encoder_position_previous == 19)
     menu_prev();
-  else if(encoder_position_current == 0 && encoder_position_previous == 19)
+  else if(encoder_position_current == 19 && encoder_position_previous == 0)
     menu_next();
   else if(encoder_position_current > encoder_position_previous)
     menu_prev();
   else if(encoder_position_current < encoder_position_previous)
     menu_next();
+
   encoder_position_previous = encoder_position_current;
 }
 
@@ -61,8 +61,10 @@ void menu_next(void) {
     menu_index = 0;
     lcd_row_pos = 0;
 
-    if (currentPointer->parent) currentPointer = (currentPointer->parent)->child;
-    else currentPointer = &menu1;
+    if (currentPointer->parent)
+      currentPointer = (currentPointer->parent)->child;
+    else
+      currentPointer = &menu1;
   }
 
   menu_refresh();
@@ -76,14 +78,18 @@ void menu_prev(void) {
   if (menu_index)
   {
     menu_index--;
-    if (lcd_row_pos > 0) lcd_row_pos--;
+
+    if (lcd_row_pos > 0)
+      lcd_row_pos--;
   }
   else
   {
     menu_index = menu_get_index(currentPointer);
 
-    if (menu_index >= menu_rows - 1) lcd_row_pos = menu_rows - 1;
-    else lcd_row_pos = menu_index;
+    if (menu_index >= menu_rows - 1)
+      lcd_row_pos = menu_rows - 1;
+    else
+      lcd_row_pos = menu_index;
   }
 
   menu_refresh();
@@ -91,7 +97,10 @@ void menu_prev(void) {
 
 void menu_enter(void) {
 
-  if (currentPointer->menu_function) currentPointer->menu_function();
+  if (currentPointer->menu_function) {
+    currentPointer->menu_function();
+    return;
+  }
 
   if (currentPointer->child)
   {
@@ -111,6 +120,7 @@ void menu_enter(void) {
 
     currentPointer = currentPointer->child;
 
+    LCD_Clear(BLACK);
     menu_refresh();
   }
 }
@@ -132,6 +142,7 @@ void menu_back(void) {
     currentPointer = currentPointer->parent;
     menu_index = menu_get_index(currentPointer);
 
+    LCD_Clear(BLACK);
     menu_refresh();
 
   }
@@ -142,19 +153,32 @@ void menu_refresh(void) {
   menu_t *temp;
   uint8_t i;
 
-  if (currentPointer->parent) temp = (currentPointer->parent)->child;
-  else temp = &menu1;
+  if (currentPointer->parent)
+    temp = (currentPointer->parent)->child;
+  else
+    temp = &menu1;
 
   for (i = 0; i != menu_index - lcd_row_pos; i++) {
     temp = temp->next;
   }
 
-  LCD_Clear(bg_color);
+  LCD_SetArealColor(0, 0, 15, LCD_HEIGHT, BLACK);
   for (i = 0; i < menu_rows; i++) {
-    LCD_DisplayString(temp == currentPointer ? 20 : 10, (i + 1) * menu_item_padding + i * menu_item_height, temp->name, & Font12, bg_color, font_color);
+    LCD_DisplayString(
+        15,
+        (i + 1) * menu_item_padding + i * menu_item_height,
+        temp->name,
+        & Font12,
+        BLACK,
+        temp == currentPointer ? BLUE : WHITE
+            );
+
+    if(temp == currentPointer)
+      LCD_DisplayString( 5, (i + 1) * menu_item_padding + i * menu_item_height, ">", & Font12, BLACK, BLUE);
 
     temp = temp->next;
-    if (!temp) break;
+    if (!temp)
+      break;
   }
 }
 
@@ -163,7 +187,8 @@ uint8_t menu_get_level(menu_t *q) {
   menu_t *temp = q;
   uint8_t i = 0;
 
-  if (!q->parent) return 0;
+  if (!q->parent)
+    return 0;
 
   while (temp->parent != NULL) {
     temp = temp->parent;
@@ -178,8 +203,10 @@ uint8_t menu_get_index(menu_t *q) {
   menu_t *temp;
   uint8_t i = 0;
 
-  if (q->parent) temp = (q->parent)->child;
-  else temp = &menu1;
+  if (q->parent)
+    temp = (q->parent)->child;
+  else
+    temp = &menu1;
 
   while (temp != q) {
     temp = temp->next;
