@@ -30,9 +30,8 @@
 #include <string.h>
 
 // LED screen
-#include "ST7735S_dev_config.h"
-#include "Menu.h"
 #include "Servo.h"
+#include "lcd_menu.h"
 
 // Distance sensor
 #include "vl53l0x_api.h"
@@ -127,12 +126,9 @@ int main(void)
 
   // Start encoder channels
   HAL_TIM_Encoder_Start(&htim1, TIM_CHANNEL_ALL);
-  // Encoder Button
-  HAL_GPIO_WritePin(ENCDR_SW_GPIO_Port, ENCDR_SW_Pin, GPIO_PIN_RESET);
 
-  // Init of LCD screen
-  LCD_SCAN_DIR Lcd_ScanDir = SCAN_DIR_DFT;
-  LCD_Init( Lcd_ScanDir );
+  // Init of LCD and menu
+  menu_init(8, 12);
 
   // Start first motor clock wise rotation
   HAL_GPIO_WritePin(L293D_PUMP1_1_GPIO_Port, L293D_PUMP1_1_Pin, GPIO_PIN_SET);
@@ -163,10 +159,11 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  servo_set_angle(0, 0);
-  HAL_Delay(1000);
+  //servo_set_angle(0, 0);
+  //HAL_Delay(1000);
   while (1)
   {
+    /*
     HAL_Delay(50);
     servo_angle += 10;
     if(servo_angle > 450) {
@@ -180,22 +177,11 @@ int main(void)
       return_servo = 0;
       HAL_Delay(1000);
     }
-    continue;
-
-    /*
-    if(TofDataRead == 1)
-    {
-      milimeters = RangingData.RangeMilliMeter;
-      TofDataRead = 0;
-    }
     */
 
+    menu_update();
 
-  /*  if(ToEncdrSW == 1)
-       {
-         ToEncdrSW = 0;
-       }
-*/
+
 
     /* USER CODE END WHILE */
 
@@ -260,7 +246,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   // Handle encoder interrupts
   if(GPIO_Pin == ENCDR_SW_Pin)
   {
-	  setToEncdrSW();
+	  menu_enter();
   }
 
 }
