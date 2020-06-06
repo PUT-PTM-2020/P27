@@ -62,6 +62,8 @@ void Error_Handler(void);
 #define TOF_EXTI_Pin GPIO_PIN_1
 #define TOF_EXTI_GPIO_Port GPIOC
 #define TOF_EXTI_EXTI_IRQn EXTI1_IRQn
+#define LCD_DC_Pin GPIO_PIN_4
+#define LCD_DC_GPIO_Port GPIOA
 #define SPI1_SCK_Pin GPIO_PIN_5
 #define SPI1_SCK_GPIO_Port GPIOA
 #define SERVO_PWM_Pin GPIO_PIN_6
@@ -83,8 +85,6 @@ void Error_Handler(void);
 #define LCD_BL_GPIO_Port GPIOC
 #define LCD_RST_Pin GPIO_PIN_9
 #define LCD_RST_GPIO_Port GPIOA
-#define LCD_DC_Pin GPIO_PIN_11
-#define LCD_DC_GPIO_Port GPIOA
 #define LCD_CS_Pin GPIO_PIN_3
 #define LCD_CS_GPIO_Port GPIOB
 #define L293D_PUMP1_1_Pin GPIO_PIN_4
