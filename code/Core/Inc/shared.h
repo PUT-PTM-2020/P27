@@ -7,7 +7,6 @@
 
 #ifndef INC_SHARED_H_
 #define INC_SHARED_H_
-
 #endif /* INC_SHARED_H_ */
 
 #include <stdio.h>

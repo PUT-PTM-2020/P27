@@ -11,6 +11,8 @@
 #endif /* INC_LCD_MENU_H_ */
 
 #include "tim.h"
+#include <shared.h>
+#include "pumps.h"
 #include "ST7735S_dev_config.h"
 #include <stdio.h>
 
@@ -46,6 +48,9 @@ menu_t menu2;
     menu_t menu2_2_2;
     menu_t menu2_2_3;
 menu_t menu3;
+  menu_t menu3_1;
+  menu_t menu3_2;
+  menu_t menu3_3;
 
 uint8_t menu_index;
 uint8_t lcd_row_pos;
@@ -73,10 +78,17 @@ void menu_refresh(void);
 uint8_t menu_get_index(menu_t *q);
 uint8_t menu_get_level(menu_t *q);
 
+
+
 void menu_screen_proportion(void);
 void menu_update_proportion(void);
 void menu_set_liquid_1(void);
 void menu_set_liquid_2(void);
+
+void menu_screen_debug(void);
+void menu_update_debug(void);
+void menu_toggle_pump_1(void);
+void menu_toggle_pump_2(void);
 
 void update_encoder_direction(void);
 void encoder_handle_click(void);

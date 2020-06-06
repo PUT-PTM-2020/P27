@@ -19,7 +19,6 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include <shared.h>
 #include "main.h"
 #include "i2c.h"
 #include "spi.h"
@@ -35,6 +34,9 @@
 
 // LED screen
 #include "lcd_menu.h"
+
+// Pumps
+#include "pumps.h"
 
 // Distance sensor
 #include "vl53l0x_api.h"
@@ -126,27 +128,21 @@ int main(void)
   HAL_TIM_PWM_Start(&htim13, TIM_CHANNEL_1);
   servo_set_angle(900, 0);
 
-  // Start TIM4 for L293D
-  HAL_TIM_Base_Start_IT(&htim12);
-
   // Start encoder channels
   HAL_TIM_Encoder_Start(&htim1, TIM_CHANNEL_ALL);
 
   // Init of LCD and menu
   menu_init(8, 12);
 
-  // Start first motor clock wise rotation
-  HAL_GPIO_WritePin(L293D_PUMP1_1_GPIO_Port, L293D_PUMP1_1_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(L293D_PUMP1_2_GPIO_Port, L293D_PUMP1_2_Pin, GPIO_PIN_RESET);
+  // Start pumps
+  pumps_init();
 
   //
   // init VL53L0X
   //
   Dev->I2cHandle = &hi2c1;
   Dev->I2cDevAddr = 0x52;
-
   HAL_NVIC_DisableIRQ(EXTI1_IRQn);
-
   VL53L0X_WaitDeviceBooted( Dev );
   VL53L0X_DataInit( Dev );
   VL53L0X_StaticInit( Dev );
@@ -250,12 +246,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   // Handle encoder interrupts
   if(GPIO_Pin == ENCDR_SW_Pin)
     encoder_handle_click();
-}
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-  if(htim->Instance == TIM12)
-  {
-  }
 }
 
 /* USER CODE END 4 */

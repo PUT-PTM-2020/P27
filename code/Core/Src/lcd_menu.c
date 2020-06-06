@@ -5,7 +5,6 @@
  *      Author: tymon
  */
 
-#include <shared.h>
 #include "lcd_menu.h"
 
 // definition of menu's components: (*name, *next, *prev, *child, *parent, (*menu_function))
@@ -16,7 +15,10 @@ menu_t menu2 = { "Opcje", &menu3, &menu1, &menu2_1, NULL, NULL };
     menu_t menu2_2_1 = { "..", &menu2_2_2, &menu2_2_3, NULL, &menu2_2, menu_back };
     menu_t menu2_2_2 = { "Ciecz 1", &menu2_2_3, &menu2_2_1, NULL, &menu2_2, menu_set_liquid_1 };
     menu_t menu2_2_3 = { "Ciecz 2", NULL, &menu2_2_2, NULL, &menu2_2, menu_set_liquid_2 };
-menu_t menu3 = { "Debug", NULL, &menu2, NULL, NULL, NULL }; // TODO
+menu_t menu3 = { "Debug", NULL, &menu2, &menu3_1, NULL, menu_screen_debug };
+  menu_t menu3_1 = { "..", &menu3_2, &menu3_3, NULL, &menu3, menu_back };
+  menu_t menu3_2 = { "Pompa 1", &menu3_3, &menu3_1, NULL, &menu3, menu_toggle_pump_1 };
+  menu_t menu3_3 = { "Pompa 2", NULL, &menu3_2, NULL, &menu3, menu_toggle_pump_2 };
 
 menu_t *currentPointer = &menu1;
 uint8_t *currentLiquid = NULL;
@@ -256,6 +258,37 @@ void menu_set_liquid_1(void) {
 void menu_set_liquid_2(void) {
   menu_state = MENU_STATE_LIQUIDS;
   currentLiquid = &liquid2;
+}
+
+void menu_screen_debug(void) {
+  menu_enter();
+  menu_update_debug();
+}
+
+void menu_update_debug(void) {
+  uint8_t position_x = lcd_width - 4 * Font12.Width;
+
+  LCD_DisplayString(
+      position_x,
+      menu_item_padding * 2 + menu_item_height,
+      pumps_is_on(PUMP_1) ? "ON " : "OFF",
+      & Font12, BLACK, WHITE);
+
+  LCD_DisplayString(
+      position_x,
+      menu_item_padding * 3 + menu_item_height * 2,
+      pumps_is_on(PUMP_2) ? "ON " : "OFF",
+      & Font12, BLACK, WHITE);
+}
+
+void menu_toggle_pump_1(void) {
+  pumps_toggle(PUMP_1);
+  menu_update_debug();
+}
+
+void menu_toggle_pump_2(void) {
+  pumps_toggle(PUMP_2);
+  menu_update_debug();
 }
 
 void update_encoder_direction(void) {

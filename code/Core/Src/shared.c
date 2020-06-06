@@ -5,7 +5,6 @@
  *      Author: tymon
  */
 
-
 #include <shared.h>
 
 void liquid_add_percent(uint8_t *liquid, int8_t value) {
