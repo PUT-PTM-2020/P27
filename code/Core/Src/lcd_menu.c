@@ -10,24 +10,11 @@
 #include "lcd_menu.h"
 
 // definition of menu's components: (*name, *next, *prev, *child, *parent, (*menu_function))
-menu_t menu1 = { "ELEMENT 1", &menu2, &menu6, &sub_menu1_1, NULL, NULL };
-  menu_t sub_menu1_1 = { "ELEMENT 1_1", &sub_menu1_2, &sub_menu1_2, &sub_menu1_1_1, &menu1, NULL };
-    menu_t sub_menu1_1_1 = { "ELEMENT 1_1_1", NULL, &sub_menu1_1_1, NULL, &sub_menu1_1, NULL };
-  menu_t sub_menu1_2 = { "ELEMENT 1_2", NULL, &sub_menu1_1, NULL, &menu1, NULL };
-menu_t menu2 = { "ELEMENT 2", &menu3, &menu1, &sub_menu2_1, NULL, NULL };
-  menu_t sub_menu2_1 = { "ELEMENT 2_1", &sub_menu2_2, &sub_menu2_4, NULL, &menu2, NULL };
-  menu_t sub_menu2_2 = { "ELEMENT 2_2", &sub_menu2_3, &sub_menu2_1, &sub_menu2_2_1, &menu2, NULL };
-    menu_t sub_menu2_2_1 = { "ELEMENT 2_2_1", &sub_menu2_2_2, &sub_menu2_2_5, NULL, &sub_menu2_2, NULL };
-    menu_t sub_menu2_2_2 = { "ELEMENT 2_2_2", &sub_menu2_2_3, &sub_menu2_2_1, NULL, &sub_menu2_2, NULL };
-    menu_t sub_menu2_2_3 = { "ELEMENT 2_2_3", &sub_menu2_2_4, &sub_menu2_2_2, NULL, &sub_menu2_2, NULL };
-    menu_t sub_menu2_2_4 = { "ELEMENT 2_2_4", &sub_menu2_2_5, &sub_menu2_2_3, NULL, &sub_menu2_2, NULL };
-    menu_t sub_menu2_2_5 = { "ELEMENT 2_2_5", NULL, &sub_menu2_2_4, NULL, &sub_menu2_2, NULL };
-  menu_t sub_menu2_3 = { "ELEMENT 2_3", &sub_menu2_4, &sub_menu2_2, NULL, &menu2, NULL };
-  menu_t sub_menu2_4 = { "ELEMENT 2_4", NULL, &sub_menu2_3, NULL, &menu2, NULL };
-menu_t menu3 = { "ELEMENT 3", &menu4, &menu2, NULL, NULL, NULL };
-menu_t menu4 = { "ELEMENT 4", &menu5, &menu3, NULL, NULL, NULL };
-menu_t menu5 = { "ELEMENT 5", &menu6, &menu4, NULL, NULL, NULL };
-menu_t menu6 = { "ELEMENT 6", NULL, &menu5, NULL, NULL, NULL };
+menu_t menu1 = { "Nalewanie", &menu2, &menu3, NULL, NULL, NULL };
+menu_t menu2 = { "Opcje", &menu3, &menu1, &menu2_1, NULL, NULL };
+  menu_t menu2_1 = { "..", &menu2_2, NULL, NULL, &menu2, menu_back };
+  menu_t menu2_2 = { "Proporcje", NULL, &menu2_1, NULL, &menu2, NULL }; // TODO
+menu_t menu3 = { "Debug", NULL, &menu2, NULL, NULL, NULL }; // TODO
 
 menu_t *currentPointer = &menu1;
 

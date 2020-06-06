@@ -25,20 +25,10 @@ struct menu_struct {
 };
 
 menu_t menu1;
-  menu_t sub_menu1_1;
-    menu_t sub_menu1_1_1;
-  menu_t sub_menu1_2;
 menu_t menu2;
-  menu_t sub_menu2_1;
-  menu_t sub_menu2_2;
-    menu_t sub_menu2_2_1, sub_menu2_2_2, sub_menu2_2_3, sub_menu2_2_4, sub_menu2_2_5;
-  menu_t sub_menu2_3;
-  menu_t sub_menu2_4;
-  menu_t sub_menu2_5;
+  menu_t menu2_1;
+  menu_t menu2_2;
 menu_t menu3;
-menu_t menu4;
-menu_t menu5;
-menu_t menu6;
 
 uint8_t menu_index;
 uint8_t lcd_row_pos;
