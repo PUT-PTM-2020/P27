@@ -12,7 +12,7 @@
 // definition of menu's components: (*name, *next, *prev, *child, *parent, (*menu_function))
 menu_t menu1 = { "Nalewanie", &menu2, &menu3, NULL, NULL, NULL };
 menu_t menu2 = { "Opcje", &menu3, &menu1, &menu2_1, NULL, NULL };
-  menu_t menu2_1 = { "..", &menu2_2, NULL, NULL, &menu2, menu_back };
+  menu_t menu2_1 = { "..", &menu2_2, &menu2_2, NULL, &menu2, menu_back };
   menu_t menu2_2 = { "Proporcje", NULL, &menu2_1, NULL, &menu2, NULL }; // TODO
 menu_t menu3 = { "Debug", NULL, &menu2, NULL, NULL, NULL }; // TODO
 
