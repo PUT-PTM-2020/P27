@@ -5,18 +5,21 @@
  *      Author: tymon
  */
 
-#include "tim.h"
-#include "ST7735S_dev_config.h"
+#include <shared.h>
 #include "lcd_menu.h"
 
 // definition of menu's components: (*name, *next, *prev, *child, *parent, (*menu_function))
 menu_t menu1 = { "Nalewanie", &menu2, &menu3, NULL, NULL, NULL };
 menu_t menu2 = { "Opcje", &menu3, &menu1, &menu2_1, NULL, NULL };
   menu_t menu2_1 = { "..", &menu2_2, &menu2_2, NULL, &menu2, menu_back };
-  menu_t menu2_2 = { "Proporcje", NULL, &menu2_1, NULL, &menu2, NULL }; // TODO
+  menu_t menu2_2 = { "Proporcje", NULL, &menu2_1, &menu2_2_1, &menu2, menu_screen_proportion };
+    menu_t menu2_2_1 = { "..", &menu2_2_2, &menu2_2_3, NULL, &menu2_2, menu_back };
+    menu_t menu2_2_2 = { "Ciecz 1", &menu2_2_3, &menu2_2_1, NULL, &menu2_2, menu_set_liquid_1 };
+    menu_t menu2_2_3 = { "Ciecz 2", NULL, &menu2_2_2, NULL, &menu2_2, menu_set_liquid_2 };
 menu_t menu3 = { "Debug", NULL, &menu2, NULL, NULL, NULL }; // TODO
 
 menu_t *currentPointer = &menu1;
+uint8_t *currentLiquid = NULL;
 
 void menu_init(uint8_t padding, uint8_t fontSize) {
   LCD_SCAN_DIR Lcd_ScanDir = SCAN_DIR_DFT;
@@ -50,11 +53,11 @@ void menu_go_home(void) {
   menu_refresh();
 }
 
-void menu_show_error(const char * error_message) {
+void menu_display_error(const char * error_message) {
   menu_state = MENU_STATE_ERROR;
   LCD_Clear(BLACK);
   LCD_DisplayString( 5, (lcd_height - menu_item_height) / 2, error_message, & Font12, BLACK, RED);
-  LCD_DisplayString( lcd_width / 2 - 14, lcd_height - menu_item_height - menu_item_padding, "> OK", & Font12, BLACK, WHITE);
+  LCD_DisplayString( lcd_width / 2 - Font12.Width * 2, lcd_height - menu_item_height - menu_item_padding, "> OK", & Font12, BLACK, WHITE);
 }
 
 void menu_next(void) {
@@ -106,11 +109,6 @@ void menu_prev(void) {
 }
 
 void menu_enter(void) {
-
-  if (currentPointer->menu_function) {
-    currentPointer->menu_function();
-    return;
-  }
 
   if (currentPointer->child)
   {
@@ -226,6 +224,40 @@ uint8_t menu_get_index(menu_t *q) {
   return i;
 }
 
+void menu_screen_proportion(void) {
+  menu_enter();
+  menu_update_proportion();
+}
+
+void menu_update_proportion(void) {
+  uint8_t position_x = lcd_width - 4 * Font12.Width;
+  char percent[4];
+
+  sprintf(percent, "%d%%", liquid1);
+  LCD_DisplayString(
+      position_x,
+      menu_item_padding * 2 + menu_item_height,
+      percent,
+      & Font12, BLACK, WHITE);
+
+  sprintf(percent, "%d%%", liquid2);
+  LCD_DisplayString(
+      position_x,
+      menu_item_padding * 3 + menu_item_height * 2,
+      percent,
+      & Font12, BLACK, WHITE);
+}
+
+void menu_set_liquid_1(void) {
+  menu_state = MENU_STATE_LIQUIDS;
+  currentLiquid = &liquid1;
+}
+
+void menu_set_liquid_2(void) {
+  menu_state = MENU_STATE_LIQUIDS;
+  currentLiquid = &liquid2;
+}
+
 void update_encoder_direction(void) {
 
   encoder_position_current = __HAL_TIM_GET_COUNTER(&htim1) / 2;
@@ -247,9 +279,16 @@ void update_encoder_direction(void) {
 void encoder_handle_click(void) {
   switch(menu_state) {
     case MENU_STATE_OK:
-      menu_enter(); break;
+      if(currentPointer->menu_function)
+        currentPointer->menu_function();
+      else menu_enter();
+      break;
     case MENU_STATE_ERROR:
       menu_go_home(); break;
+    case MENU_STATE_LIQUIDS:
+      menu_state = MENU_STATE_OK;
+      currentLiquid = NULL;
+      break;
   }
 }
 
@@ -260,8 +299,16 @@ void encoder_handle_rotate(void) {
   if(menu_state == MENU_STATE_OK) {
     if(encoder_direction == ENCODER_LEFT)
       menu_prev();
-    if(encoder_direction == ENCODER_RIGHT)
+    else if(encoder_direction == ENCODER_RIGHT)
       menu_next();
+  }
+
+  if(menu_state == MENU_STATE_LIQUIDS) {
+    if(encoder_direction == ENCODER_LEFT)
+      liquid_add_percent(currentLiquid, -1);
+    else if(encoder_direction == ENCODER_RIGHT)
+      liquid_add_percent(currentLiquid, 1);
+    menu_update_proportion();
   }
 
 }

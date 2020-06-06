@@ -19,6 +19,7 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
+#include <shared.h>
 #include "main.h"
 #include "i2c.h"
 #include "spi.h"
@@ -80,7 +81,9 @@ uint32_t refSpadCount;
 uint8_t isApertureSpads;
 uint8_t VhvSettings;
 uint8_t PhaseCal;
-uint16_t milimeters = 0;
+
+uint8_t liquid1 = 50;
+uint8_t liquid2 = 50;
 
 /* USER CODE END 0 */
 
@@ -136,13 +139,12 @@ int main(void)
   HAL_GPIO_WritePin(L293D_PUMP1_1_GPIO_Port, L293D_PUMP1_1_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(L293D_PUMP1_2_GPIO_Port, L293D_PUMP1_2_Pin, GPIO_PIN_RESET);
 
-
+  //
+  // init VL53L0X
+  //
   Dev->I2cHandle = &hi2c1;
   Dev->I2cDevAddr = 0x52;
 
-  //
-  // VL53L0X init for Single Measurement
-  //
   HAL_NVIC_DisableIRQ(EXTI1_IRQn);
 
   VL53L0X_WaitDeviceBooted( Dev );
@@ -242,7 +244,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   {
     VL53L0X_GetRangingMeasurementData(Dev, &RangingData);
     VL53L0X_ClearInterruptMask(Dev, VL53L0X_REG_SYSTEM_INTERRUPT_GPIO_NEW_SAMPLE_READY);
-    milimeters = RangingData.RangeMilliMeter;
+    distance_milimeters = RangingData.RangeMilliMeter;
   }
 
   // Handle encoder interrupts

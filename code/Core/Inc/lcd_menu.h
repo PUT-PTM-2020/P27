@@ -10,7 +10,15 @@
 
 #endif /* INC_LCD_MENU_H_ */
 
-typedef enum { MENU_STATE_OK, MENU_STATE_ERROR } MENU_STATE;
+#include "tim.h"
+#include "ST7735S_dev_config.h"
+#include <stdio.h>
+
+typedef enum {
+  MENU_STATE_OK,
+  MENU_STATE_ERROR,
+  MENU_STATE_LIQUIDS
+} MENU_STATE;
 
 typedef enum { ENCODER_LEFT, ENCODER_STOP, ENCODER_RIGHT } ENCODER_DIRECTION;
 
@@ -34,6 +42,9 @@ menu_t menu1;
 menu_t menu2;
   menu_t menu2_1;
   menu_t menu2_2;
+    menu_t menu2_2_1;
+    menu_t menu2_2_2;
+    menu_t menu2_2_3;
 menu_t menu3;
 
 uint8_t menu_index;
@@ -53,7 +64,7 @@ uint8_t encoder_position_current;
 void menu_init(uint8_t padding, uint8_t fontSize);
 void menu_update(void);
 void menu_go_home(void);
-void menu_show_error(const char * error_message);
+void menu_display_error(const char * error_message);
 void menu_next(void);
 void menu_prev(void);
 void menu_enter(void);
@@ -61,6 +72,11 @@ void menu_back(void);
 void menu_refresh(void);
 uint8_t menu_get_index(menu_t *q);
 uint8_t menu_get_level(menu_t *q);
+
+void menu_screen_proportion(void);
+void menu_update_proportion(void);
+void menu_set_liquid_1(void);
+void menu_set_liquid_2(void);
 
 void update_encoder_direction(void);
 void encoder_handle_click(void);
