@@ -24,27 +24,37 @@ void menu_init(uint8_t padding, uint8_t fontSize) {
 
   menu_item_padding = padding;
   menu_item_height = fontSize;
+  lcd_height = LCD_WIDTH;
+  lcd_width = LCD_HEIGHT;
 
-  menu_rows = LCD_HEIGHT / (menu_item_padding + menu_item_height);
+  menu_rows = lcd_height / (menu_item_padding + menu_item_height);
+
+  menu_state = MENU_STATE_OK;
 
   LCD_Clear(BLACK);
   menu_refresh();
 }
 
 void menu_update(void) {
+  update_encoder_direction();
+  encoder_handle_rotate();
+}
 
-  encoder_position_current = __HAL_TIM_GET_COUNTER(&htim1) / 2;
+void menu_go_home(void) {
+  menu_index = 0;
+  lcd_row_pos = 0;
+  currentPointer = &menu1;
 
-  if(encoder_position_current == 0 && encoder_position_previous == 19)
-    menu_prev();
-  else if(encoder_position_current == 19 && encoder_position_previous == 0)
-    menu_next();
-  else if(encoder_position_current > encoder_position_previous)
-    menu_prev();
-  else if(encoder_position_current < encoder_position_previous)
-    menu_next();
+  menu_state = MENU_STATE_OK;
+  LCD_Clear(BLACK);
+  menu_refresh();
+}
 
-  encoder_position_previous = encoder_position_current;
+void menu_show_error(const char * error_message) {
+  menu_state = MENU_STATE_ERROR;
+  LCD_Clear(BLACK);
+  LCD_DisplayString( 5, (lcd_height - menu_item_height) / 2, error_message, & Font12, BLACK, RED);
+  LCD_DisplayString( lcd_width / 2 - 14, lcd_height - menu_item_height - menu_item_padding, "> OK", & Font12, BLACK, WHITE);
 }
 
 void menu_next(void) {
@@ -162,7 +172,7 @@ void menu_refresh(void) {
     temp = temp->next;
   }
 
-  LCD_SetArealColor(0, 0, 15, LCD_HEIGHT, BLACK);
+  LCD_SetArealColor(0, 0, 15, lcd_height, BLACK);
   for (i = 0; i < menu_rows; i++) {
     LCD_DisplayString(
         15,
@@ -214,4 +224,44 @@ uint8_t menu_get_index(menu_t *q) {
   }
 
   return i;
+}
+
+void update_encoder_direction(void) {
+
+  encoder_position_current = __HAL_TIM_GET_COUNTER(&htim1) / 2;
+
+  encoder_direction = ENCODER_STOP;
+
+  if(encoder_position_current == 0 && encoder_position_previous == 19)
+    encoder_direction = ENCODER_LEFT;
+  else if(encoder_position_current == 19 && encoder_position_previous == 0)
+    encoder_direction = ENCODER_RIGHT;
+  else if(encoder_position_current > encoder_position_previous)
+    encoder_direction = ENCODER_LEFT;
+  else if(encoder_position_current < encoder_position_previous)
+    encoder_direction = ENCODER_RIGHT;
+
+  encoder_position_previous = encoder_position_current;
+}
+
+void encoder_handle_click(void) {
+  switch(menu_state) {
+    case MENU_STATE_OK:
+      menu_enter(); break;
+    case MENU_STATE_ERROR:
+      menu_go_home(); break;
+  }
+}
+
+void encoder_handle_rotate(void) {
+  if(encoder_direction == ENCODER_STOP)
+    return;
+
+  if(menu_state == MENU_STATE_OK) {
+    if(encoder_direction == ENCODER_LEFT)
+      menu_prev();
+    if(encoder_direction == ENCODER_RIGHT)
+      menu_next();
+  }
+
 }

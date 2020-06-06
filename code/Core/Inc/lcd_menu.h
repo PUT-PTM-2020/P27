@@ -10,6 +10,12 @@
 
 #endif /* INC_LCD_MENU_H_ */
 
+typedef enum { MENU_STATE_OK, MENU_STATE_ERROR } MENU_STATE;
+
+typedef enum { ENCODER_LEFT, ENCODER_STOP, ENCODER_RIGHT } ENCODER_DIRECTION;
+
+MENU_STATE menu_state;
+ENCODER_DIRECTION encoder_direction;
 
 typedef struct menu_struct menu_t;
 
@@ -38,11 +44,16 @@ uint8_t menu_item_padding;
 uint8_t menu_item_height;
 uint8_t menu_rows;
 
+uint8_t lcd_height;
+uint8_t lcd_width;
+
 uint8_t encoder_position_previous;
 uint8_t encoder_position_current;
 
 void menu_init(uint8_t padding, uint8_t fontSize);
 void menu_update(void);
+void menu_go_home(void);
+void menu_show_error(const char * error_message);
 void menu_next(void);
 void menu_prev(void);
 void menu_enter(void);
@@ -50,6 +61,10 @@ void menu_back(void);
 void menu_refresh(void);
 uint8_t menu_get_index(menu_t *q);
 uint8_t menu_get_level(menu_t *q);
+
+void update_encoder_direction(void);
+void encoder_handle_click(void);
+void encoder_handle_rotate(void);
 
 
 

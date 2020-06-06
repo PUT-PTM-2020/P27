@@ -247,10 +247,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
   // Handle encoder interrupts
   if(GPIO_Pin == ENCDR_SW_Pin)
-  {
-	  menu_enter();
-  }
-
+    encoder_handle_click();
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
