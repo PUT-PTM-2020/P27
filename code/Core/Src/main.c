@@ -158,30 +158,9 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
-  //servo_set_angle(0, 0);
-  //HAL_Delay(1000);
   while (1)
   {
-    /*
-    HAL_Delay(50);
-    servo_angle += 10;
-    if(servo_angle > 450) {
-      servo_angle = 0;
-      return_servo = 1;
-    }
-
-    servo_set_angle(servo_angle, 0);
-
-    if(return_servo == 1) {
-      return_servo = 0;
-      HAL_Delay(1000);
-    }
-    */
-
     menu_update();
-
-
 
     /* USER CODE END WHILE */
 
@@ -235,6 +214,7 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
+  HAL_GPIO_WritePin(ANALYSE_GPIO_Port, ANALYSE_Pin, GPIO_PIN_SET);
   // Handle distance sensor interrupts
   if(GPIO_Pin == TOF_EXTI_Pin)
   {
@@ -244,8 +224,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   }
 
   // Handle encoder interrupts
-  if(GPIO_Pin == ENCDR_SW_Pin)
+  else if(GPIO_Pin == ENCDR_SW_Pin) {
     encoder_handle_click();
+  }
+  HAL_GPIO_WritePin(ANALYSE_GPIO_Port, ANALYSE_Pin, GPIO_PIN_RESET);
 }
 
 /* USER CODE END 4 */

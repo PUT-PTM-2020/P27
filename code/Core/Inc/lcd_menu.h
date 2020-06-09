@@ -19,7 +19,8 @@
 typedef enum {
   MENU_STATE_OK,
   MENU_STATE_ERROR,
-  MENU_STATE_LIQUIDS
+  MENU_STATE_LIQUIDS,
+  MENU_STATE_POURING
 } MENU_STATE;
 
 typedef enum { ENCODER_LEFT, ENCODER_STOP, ENCODER_RIGHT } ENCODER_DIRECTION;
@@ -78,7 +79,7 @@ void menu_refresh(void);
 uint8_t menu_get_index(menu_t *q);
 uint8_t menu_get_level(menu_t *q);
 
-
+void menu_screen_pour(void);
 
 void menu_screen_proportion(void);
 void menu_update_proportion(void);

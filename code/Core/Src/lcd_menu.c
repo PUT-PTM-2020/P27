@@ -8,7 +8,7 @@
 #include "lcd_menu.h"
 
 // definition of menu's components: (*name, *next, *prev, *child, *parent, (*menu_function))
-menu_t menu1 = { "Nalewanie", &menu2, &menu3, NULL, NULL, NULL };
+menu_t menu1 = { "Nalewanie", &menu2, &menu3, NULL, NULL, menu_screen_pour };
 menu_t menu2 = { "Opcje", &menu3, &menu1, &menu2_1, NULL, NULL };
   menu_t menu2_1 = { "..", &menu2_2, &menu2_2, NULL, &menu2, menu_back };
   menu_t menu2_2 = { "Proporcje", NULL, &menu2_1, &menu2_2_1, &menu2, menu_screen_proportion };
@@ -224,6 +224,15 @@ uint8_t menu_get_index(menu_t *q) {
   }
 
   return i;
+}
+
+void menu_screen_pour(void) {
+  __HAL_TIM_SET_COMPARE(&htim13, TIM_CHANNEL_1, 2400);
+  __HAL_TIM_SET_COMPARE(&htim13, TIM_CHANNEL_1, 400);
+  return;
+  menu_state = MENU_STATE_POURING;
+  uint16_t dst = start_cup_height_measurement();
+  menu_state = MENU_STATE_OK;
 }
 
 void menu_screen_proportion(void) {
