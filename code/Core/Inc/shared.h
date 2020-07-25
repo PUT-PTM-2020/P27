@@ -12,9 +12,9 @@
 #include <stdio.h>
 #include <math.h>
 
-uint8_t liquid1;
-uint8_t liquid2;
-uint16_t distance_milimeters;
+volatile uint8_t liquid1;
+volatile uint8_t liquid2;
+volatile uint16_t distance_milimeters;
 
 void liquid_add_percent(uint8_t *liquid, int8_t value);
 uint16_t start_cup_height_measurement(void);
