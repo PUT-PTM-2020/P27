@@ -66,6 +66,8 @@ void Error_Handler(void);
 #define SERVO_PWM_GPIO_Port GPIOA
 #define SPI1_MOSI_Pin GPIO_PIN_7
 #define SPI1_MOSI_GPIO_Port GPIOA
+#define HCSR04_TRIGGER_Pin GPIO_PIN_0
+#define HCSR04_TRIGGER_GPIO_Port GPIOB
 #define ENCDR_SIA_Pin GPIO_PIN_9
 #define ENCDR_SIA_GPIO_Port GPIOE
 #define ENCDR_SIB_Pin GPIO_PIN_11
@@ -77,6 +79,8 @@ void Error_Handler(void);
 #define L293D_PWM_1_GPIO_Port GPIOB
 #define L293D_PWM_2_Pin GPIO_PIN_15
 #define L293D_PWM_2_GPIO_Port GPIOB
+#define HCSR04_ECHO_Pin GPIO_PIN_6
+#define HCSR04_ECHO_GPIO_Port GPIOC
 #define LCD_BL_Pin GPIO_PIN_7
 #define LCD_BL_GPIO_Port GPIOC
 #define LCD_RST_Pin GPIO_PIN_9

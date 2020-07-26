@@ -37,6 +37,9 @@
 // Pumps
 #include "pumps.h"
 
+
+#include "hcsr04.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -60,6 +63,8 @@
 
 volatile uint16_t servo_angle = 0;
 volatile uint8_t return_servo = 0;
+
+float distance;
 
 /* USER CODE END PV */
 
@@ -108,6 +113,7 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM12_Init();
   MX_TIM13_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
   // Start servo's PWM
@@ -123,12 +129,16 @@ int main(void)
   // Start pumps
   pumps_init();
 
+  // Init HCSR04
+  HCSR04_Init(&htim3);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    HCSR04_Read(&distance);
     menu_update();
 
     /* USER CODE END WHILE */
@@ -186,6 +196,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   if(GPIO_Pin == ENCDR_SW_Pin) {
     encoder_handle_click();
   }
+}
+
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+{
+  HCSR04_TIM_IC_CaptureCallback(htim);
 }
 
 /* USER CODE END 4 */
