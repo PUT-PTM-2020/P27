@@ -80,8 +80,6 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-VL53L0X_Error error;
-
 volatile uint8_t liquid1 = 50;
 volatile uint8_t liquid2 = 50;
 
@@ -123,6 +121,7 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM12_Init();
   MX_TIM13_Init();
+  MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
 
   // Start servo's PWM
@@ -138,23 +137,22 @@ int main(void)
   // Start pumps
   pumps_init();
 
-  //
-  // init VL53L0X
-  //
-
+  // Init VL53L0X
   Dev->I2cHandle = &hi2c1;
   Dev->I2cDevAddr = 0x52;
   HAL_NVIC_DisableIRQ(EXTI1_IRQn);
-  error = VL53L0X_WaitDeviceBooted( Dev );
-  error = VL53L0X_DataInit( Dev );
-  error = VL53L0X_StaticInit( Dev );
-  error = VL53L0X_PerformRefCalibration(Dev, &VhvSettings, &PhaseCal);
-  error = VL53L0X_PerformRefSpadManagement(Dev, &refSpadCount, &isApertureSpads);
-  error = VL53L0X_SetDeviceMode(Dev, VL53L0X_DEVICEMODE_CONTINUOUS_TIMED_RANGING);
-  error = VL53L0X_SetInterMeasurementPeriodMilliSeconds(Dev, 200);
-  error = VL53L0X_SetGpioConfig(Dev, TOF_EXTI_Pin, VL53L0X_DEVICEMODE_CONTINUOUS_TIMED_RANGING, VL53L0X_GPIOFUNCTIONALITY_THRESHOLD_CROSSED_LOW, VL53L0X_INTERRUPTPOLARITY_LOW);
-  error = VL53L0X_StartMeasurement(Dev);
+  VL53L0X_WaitDeviceBooted( Dev );
+  VL53L0X_DataInit( Dev );
+  VL53L0X_StaticInit( Dev );
+  VL53L0X_PerformRefCalibration(Dev, &VhvSettings, &PhaseCal);
+  VL53L0X_PerformRefSpadManagement(Dev, &refSpadCount, &isApertureSpads);
+  VL53L0X_SetDeviceMode(Dev, VL53L0X_DEVICEMODE_CONTINUOUS_TIMED_RANGING);
+  VL53L0X_SetInterMeasurementPeriodMilliSeconds(Dev, 200);
+  VL53L0X_SetGpioConfig(Dev, TOF_EXTI_Pin, VL53L0X_DEVICEMODE_CONTINUOUS_TIMED_RANGING, VL53L0X_GPIOFUNCTIONALITY_THRESHOLD_CROSSED_LOW, VL53L0X_INTERRUPTPOLARITY_LOW);
+  VL53L0X_StartMeasurement(Dev);
   HAL_NVIC_EnableIRQ(EXTI1_IRQn);
+
+
 
   /* USER CODE END 2 */
 
@@ -216,20 +214,33 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-  //HAL_GPIO_WritePin(ANALYSE_GPIO_Port, ANALYSE_Pin, GPIO_PIN_SET);
   // Handle distance sensor interrupts
-  if(GPIO_Pin == TOF_EXTI_Pin)
-  {
-    error = VL53L0X_GetRangingMeasurementData(Dev, &RangingData);
-    error = VL53L0X_ClearInterruptMask(Dev, VL53L0X_REG_SYSTEM_INTERRUPT_GPIO_NEW_SAMPLE_READY);
+  if(GPIO_Pin == TOF_EXTI_Pin) {
+    VL53L0X_GetRangingMeasurementData(Dev, &RangingData);
+    VL53L0X_ClearInterruptMask(Dev, VL53L0X_REG_SYSTEM_INTERRUPT_GPIO_NEW_SAMPLE_READY);
     distance_milimeters = RangingData.RangeMilliMeter;
   }
 
-  // Handle encoder interrupts
+  // Handle encoder interrupts - debounce pressed encoder
   else if(GPIO_Pin == ENCDR_SW_Pin) {
-    encoder_handle_click();
+    if(encoder_is_pressed == 0) {
+      encoder_is_pressed = 1;
+      HAL_TIM_Base_Start_IT(&htim7);
+    }
   }
-  //HAL_GPIO_WritePin(ANALYSE_GPIO_Port, ANALYSE_Pin, GPIO_PIN_RESET);
+
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  // Handle pressed, debounced encoder
+  if(htim->Instance == TIM7) {
+    if(HAL_GPIO_ReadPin(ENCDR_SW_GPIO_Port, ENCDR_SW_Pin) == GPIO_PIN_RESET) {
+      encoder_handle_click();
+      encoder_is_pressed = 0;
+      HAL_TIM_Base_Stop_IT(&htim7);
+    }
+  }
 }
 
 /* USER CODE END 4 */

@@ -67,6 +67,8 @@ uint8_t lcd_width;
 uint8_t encoder_position_previous;
 uint8_t encoder_position_current;
 
+uint8_t encoder_is_pressed;
+
 void menu_init(uint8_t padding, uint8_t fontSize);
 void menu_update(void);
 void menu_go_home(void);
