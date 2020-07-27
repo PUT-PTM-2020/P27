@@ -59,6 +59,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define SERVO_PWM_Pin GPIO_PIN_5
+#define SERVO_PWM_GPIO_Port GPIOE
 #define TOF_EXTI_Pin GPIO_PIN_1
 #define TOF_EXTI_GPIO_Port GPIOC
 #define TOF_EXTI_EXTI_IRQn EXTI1_IRQn
