@@ -227,9 +227,6 @@ uint8_t menu_get_index(menu_t *q) {
 }
 
 void menu_screen_pour(void) {
-  __HAL_TIM_SET_COMPARE(&htim13, TIM_CHANNEL_1, 2400);
-  __HAL_TIM_SET_COMPARE(&htim13, TIM_CHANNEL_1, 400);
-  return;
   menu_state = MENU_STATE_POURING;
   uint16_t dst = start_cup_height_measurement();
   menu_state = MENU_STATE_OK;

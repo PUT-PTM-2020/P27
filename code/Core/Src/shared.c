@@ -20,13 +20,14 @@ void liquid_add_percent(uint8_t *liquid, int8_t value) {
 }
 
 uint16_t start_cup_height_measurement(void) {
+  return 0;
   uint16_t min_distance = distance_milimeters;
   uint16_t min_distance_angle = 0;
 
   servo_set_angle(0, 0);
   HAL_Delay(300);
 
-  for(uint16_t angle = 0; angle <= 1500; angle += 50) {
+  for(uint16_t angle = 0; angle <= 1500; angle += 25) {
     servo_set_angle(angle, 0);
     HAL_Delay(50);
 

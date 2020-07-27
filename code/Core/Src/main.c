@@ -83,6 +83,7 @@ void SystemClock_Config(void);
 volatile uint8_t liquid1 = 50;
 volatile uint8_t liquid2 = 50;
 
+
 /* USER CODE END 0 */
 
 /**
@@ -120,13 +121,17 @@ int main(void)
   MX_I2C1_Init();
   MX_TIM1_Init();
   MX_TIM12_Init();
-  MX_TIM13_Init();
   MX_TIM7_Init();
+  MX_TIM3_Init();
+  MX_TIM10_Init();
+  MX_TIM9_Init();
   /* USER CODE BEGIN 2 */
 
   // Start servo's PWM
-  HAL_TIM_PWM_Start(&htim13, TIM_CHANNEL_1);
-  servo_set_angle(900, 0);
+  HAL_TIM_PWM_Start(&htim9, TIM_CHANNEL_1);
+  servo_set_angle(0, 0);
+
+  HAL_TIM_Base_Start_IT(&htim3);
 
   // Start encoder channels
   HAL_TIM_Encoder_Start(&htim1, TIM_CHANNEL_ALL);
@@ -231,6 +236,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 }
 
+volatile uint16_t angle = 1;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   // Handle pressed, debounced encoder
@@ -239,6 +245,17 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
       encoder_handle_click();
       encoder_is_pressed = 0;
       HAL_TIM_Base_Stop_IT(&htim7);
+    }
+  }
+  // Servo
+  else if(htim->Instance == TIM3) {
+    if(angle == 1) {
+      servo_set_angle(0, 0);
+      angle = 0;
+    }
+    else {
+      servo_set_angle(450, 0);
+      angle = 1;
     }
   }
 }

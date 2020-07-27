@@ -66,8 +66,6 @@ void Error_Handler(void);
 #define LCD_DC_GPIO_Port GPIOA
 #define SPI1_SCK_Pin GPIO_PIN_5
 #define SPI1_SCK_GPIO_Port GPIOA
-#define SERVO_PWM_Pin GPIO_PIN_6
-#define SERVO_PWM_GPIO_Port GPIOA
 #define SPI1_MOSI_Pin GPIO_PIN_7
 #define SPI1_MOSI_GPIO_Port GPIOA
 #define ENCDR_SIA_Pin GPIO_PIN_9
@@ -89,8 +87,8 @@ void Error_Handler(void);
 #define L293D_PUMP1_1_GPIO_Port GPIOD
 #define L293D_PUMP1_2_Pin GPIO_PIN_4
 #define L293D_PUMP1_2_GPIO_Port GPIOD
-#define LCD_CS_Pin GPIO_PIN_3
-#define LCD_CS_GPIO_Port GPIOB
+#define LCD_CS_Pin GPIO_PIN_7
+#define LCD_CS_GPIO_Port GPIOD
 /* USER CODE BEGIN Private defines */
 #define SPI1_MISO_Pin GPIO_PIN_6
 #define SPI1_MISO_GPIO_Port GPIOA
