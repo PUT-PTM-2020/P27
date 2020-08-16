@@ -77,21 +77,18 @@ class Servomechanism(QWidget):
 
 
     def showDistanceSensor(self):
-        testSend.send('a')
         print("Open Window DistanceSensor")
         self.ds = distanceSensor.DistanceSensor()
         self.ds.show()
         self.close()
 
     def showServomechanism(self):
-        testSend.send('b')
         print("Open Window Servomechanism")
         self.s = Servomechanism()
         self.s.show()
         self.close()
 
     def showMembranePumps(self):
-        testSend.send('c')
         print("Open Window MembranePumps")
         self.mp = membranePump.MembranePump()
         self.mp.show()

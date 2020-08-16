@@ -19,6 +19,7 @@ class MembranePump(QWidget):
 
         pom = send.Send()
         self.send(pom.send('c'))
+
         self.interfejs()
 
     def interfejs(self):
@@ -65,7 +66,6 @@ class MembranePump(QWidget):
             label4 = QLabel("Power[1]: OFF")
             label5 = QLabel("Power[2]: OFF"),
 
-
         font = QtGui.QFont()
         font.setPointSize(11)
         label3.setFont(font)
@@ -91,21 +91,18 @@ class MembranePump(QWidget):
 
     def showDistanceSensor(self):
         print("Open Window DistanceSensor")
-        self.send(1)
         self.ds = distanceSensor.DistanceSensor()
         self.ds.show()
         self.close()
 
     def showServomechanism(self):
         print("Open Window Servomechanism")
-        self.send(1)
         self.s = servomechanism.Servomechanism()
         self.s.show()
         self.close()
 
     def showMembranePumps(self):
         print("Open Window MembranePumps")
-        self.send("i")
         self.mp = MembranePump()
         self.mp.show()
         self.close()

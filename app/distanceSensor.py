@@ -82,6 +82,7 @@ class DistanceSensor(QWidget):
 
     def showDistanceSensor(self):
         print("Open Window DistanceSensor")
+
         self.ds = DistanceSensor()
         self.ds.show()
         self.close()
