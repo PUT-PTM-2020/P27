@@ -50,8 +50,8 @@ void menu_go_home(void) {
   lcd_row_pos = 0;
   currentPointer = &menu1;
 
-  menu_state = MENU_STATE_OK;
   LCD_Clear(BLACK);
+  menu_state = MENU_STATE_OK;
   menu_refresh();
 }
 
@@ -60,6 +60,33 @@ void menu_display_error(const char * error_message) {
   LCD_Clear(BLACK);
   LCD_DisplayString( 5, (lcd_height - menu_item_height) / 2, error_message, & Font12, BLACK, RED);
   LCD_DisplayString( lcd_width / 2 - Font12.Width * 2, lcd_height - menu_item_height - menu_item_padding, "> OK", & Font12, BLACK, WHITE);
+}
+
+void menu_display_measurement(void) {
+  char min_distance_string[5];
+  sprintf(min_distance_string, "%dmm", min_distance);
+
+  LCD_DisplayString( 5, (lcd_height - menu_item_height) / 2, "Pomiar...", & Font12, BLACK, WHITE);
+  LCD_DisplayString( lcd_width / 2 - Font12.Width * 2, lcd_height - menu_item_height - menu_item_padding, min_distance_string, & Font12, BLACK, WHITE);
+}
+
+void menu_display_confirm_measurement(void) {
+  char max_pouring_height_string[6];
+  sprintf(max_pouring_height_string, "%dmm", max_pouring_height);
+
+  LCD_DisplayString( 5, (lcd_height - menu_item_height) / 2, "Nalewac?", & Font12, BLACK, WHITE);
+  LCD_DisplayString( lcd_width / 2 - Font12.Width * 2, lcd_height - (menu_item_height + menu_item_padding) * 3, max_pouring_height_string, & Font12, BLACK, WHITE);
+  LCD_DisplayString( lcd_width / 2 - Font12.Width * 2, lcd_height - (menu_item_height + menu_item_padding) * 2, "TAK >", & Font12, BLACK, WHITE);
+  LCD_DisplayString( lcd_width / 2 - Font12.Width * 2, lcd_height - menu_item_height - menu_item_padding, "< NIE", & Font12, BLACK, WHITE);
+}
+
+void menu_display_pouring(void) {
+  char pour_percentage_string[5];
+  sprintf(pour_percentage_string, "%dmm", pour_percentage);
+
+  LCD_DisplayString( 5, (lcd_height - menu_item_height) / 2, "Nalewanie", & Font12, BLACK, WHITE);
+  LCD_DisplayString( lcd_width / 2 - Font12.Width * 2, lcd_height - menu_item_height - menu_item_padding, pour_percentage_string, & Font12, BLACK, WHITE);
+  LCD_DisplayString( lcd_width / 2 - Font12.Width * 2, lcd_height - (menu_item_height + menu_item_padding) * 2, "> STOP", & Font12, BLACK, WHITE);
 }
 
 void menu_next(void) {
@@ -227,9 +254,7 @@ uint8_t menu_get_index(menu_t *q) {
 }
 
 void menu_screen_pour(void) {
-  menu_state = MENU_STATE_POURING;
-  uint16_t dst = start_cup_height_measurement();
-  menu_state = MENU_STATE_OK;
+  init_cup_height_measurement();
 }
 
 void menu_screen_proportion(void) {
@@ -322,8 +347,12 @@ void encoder_handle_click(void) {
         currentPointer->menu_function();
       else menu_enter();
       break;
+    case MENU_STATE_POURING:
+      stop_pouring();
+      break;
     case MENU_STATE_ERROR:
-      menu_go_home(); break;
+      menu_go_home();
+      break;
     case MENU_STATE_LIQUIDS:
       menu_state = MENU_STATE_OK;
       currentLiquid = NULL;
@@ -342,7 +371,14 @@ void encoder_handle_rotate(void) {
       menu_next();
   }
 
-  if(menu_state == MENU_STATE_LIQUIDS) {
+  else if(menu_state == MENU_STATE_CONFIRM_MEASUREMENT) {
+    if(encoder_direction == ENCODER_LEFT)
+      stop_pouring();
+    else if(encoder_direction == ENCODER_RIGHT)
+      init_pouring();
+  }
+
+  else if(menu_state == MENU_STATE_LIQUIDS) {
     if(encoder_direction == ENCODER_LEFT)
       liquid_add_percent(currentLiquid, -1);
     else if(encoder_direction == ENCODER_RIGHT)

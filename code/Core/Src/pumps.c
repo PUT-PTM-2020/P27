@@ -13,11 +13,10 @@ void pumps_init(void) {
   HAL_TIM_PWM_Start(&PUMPS_TIMER, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&PUMPS_TIMER, TIM_CHANNEL_2);
 
-  // Start first motor clock wise rotation
-  HAL_GPIO_WritePin(L293D_PUMP1_1_GPIO_Port, L293D_PUMP1_1_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(L293D_PUMP1_2_GPIO_Port, L293D_PUMP1_2_Pin, GPIO_PIN_RESET);
-
   pump_max_pwm = __HAL_TIM_GET_AUTORELOAD(&PUMPS_TIMER);
+
+  pumps_off(PUMP_1);
+  pumps_off(PUMP_2);
 }
 
 

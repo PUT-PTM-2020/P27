@@ -45,7 +45,7 @@ typedef enum{
 	D2U_L2R  ,
 	D2U_R2L  , 
 }LCD_SCAN_DIR;
-#define SCAN_DIR_DFT  L2R_U2D  //Default scan direction = L2R_U2D
+#define SCAN_DIR_DFT  R2L_D2U  //Default scan direction = L2R_U2D
 
 /********************************************************************************
 function:	

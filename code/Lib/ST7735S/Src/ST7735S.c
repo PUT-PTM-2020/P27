@@ -245,7 +245,7 @@ function:
 ********************************************************************************/
 void LCD_Init( LCD_SCAN_DIR Lcd_ScanDir ){	
 	//Turn on the backlight
-	LCD_BL_1;
+	//LCD_BL_1;
 	
 	//Hardware reset
 	LCD_Reset(); 

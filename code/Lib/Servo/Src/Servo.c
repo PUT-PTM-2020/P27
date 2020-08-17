@@ -24,6 +24,8 @@ void servo_set_angle(uint16_t angle, uint8_t mode)
 	}
 
 	__HAL_TIM_SET_COMPARE(&TIM_NO, TIM_CH_NO, val);
+
+	current_servo_angle = angle;
 }
 
 

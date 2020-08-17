@@ -20,6 +20,8 @@ typedef enum {
   MENU_STATE_OK,
   MENU_STATE_ERROR,
   MENU_STATE_LIQUIDS,
+  MENU_STATE_MEASUREMENT,
+  MENU_STATE_CONFIRM_MEASUREMENT,
   MENU_STATE_POURING
 } MENU_STATE;
 
@@ -73,6 +75,11 @@ void menu_init(uint8_t padding, uint8_t fontSize);
 void menu_update(void);
 void menu_go_home(void);
 void menu_display_error(const char * error_message);
+
+void menu_display_measurement(void);
+void menu_display_confirm_measurement(void);
+void menu_display_pouring(void);
+
 void menu_next(void);
 void menu_prev(void);
 void menu_enter(void);

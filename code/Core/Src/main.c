@@ -17,7 +17,6 @@
  ******************************************************************************
  */
 /* USER CODE END Header */
-
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "i2c.h"
@@ -66,9 +65,6 @@ VL53L0X_RangingMeasurementData_t RangingData;
 VL53L0X_Dev_t vl53l0x_c;
 VL53L0X_DEV Dev = &vl53l0x_c;
 
-volatile uint16_t servo_angle = 0;
-volatile uint8_t return_servo = 0;
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -79,9 +75,6 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
-volatile uint8_t liquid1 = 50;
-volatile uint8_t liquid2 = 50;
 
 
 /* USER CODE END 0 */
@@ -123,15 +116,16 @@ int main(void)
   MX_TIM12_Init();
   MX_TIM7_Init();
   MX_TIM3_Init();
-  MX_TIM10_Init();
   MX_TIM9_Init();
   /* USER CODE BEGIN 2 */
+
+  // Init settings variables
+  liquid1 = 50;
+  liquid2 = 50;
 
   // Start servo's PWM
   HAL_TIM_PWM_Start(&htim9, TIM_CHANNEL_1);
   servo_set_angle(0, 0);
-
-  HAL_TIM_Base_Start_IT(&htim3);
 
   // Start encoder channels
   HAL_TIM_Encoder_Start(&htim1, TIM_CHANNEL_ALL);
@@ -183,11 +177,12 @@ void SystemClock_Config(void)
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-  /** Configure the main internal regulator output voltage 
+  /** Configure the main internal regulator output voltage
   */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
-  /** Initializes the CPU, AHB and APB busses clocks 
+  /** Initializes the RCC Oscillators according to the specified parameters
+  * in the RCC_OscInitTypeDef structure.
   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
@@ -201,7 +196,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  /** Initializes the CPU, AHB and APB busses clocks 
+  /** Initializes the CPU, AHB and APB buses clocks
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
@@ -236,7 +231,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 }
 
-volatile uint16_t angle = 1;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   // Handle pressed, debounced encoder
@@ -247,16 +241,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
       HAL_TIM_Base_Stop_IT(&htim7);
     }
   }
-  // Servo
+  // Measurement & pouring timer
   else if(htim->Instance == TIM3) {
-    if(angle == 1) {
-      servo_set_angle(0, 0);
-      angle = 0;
-    }
-    else {
-      servo_set_angle(450, 0);
-      angle = 1;
-    }
+    if(menu_state == MENU_STATE_MEASUREMENT)
+      perform_cup_height_measurement();
+    else if(menu_state == MENU_STATE_POURING)
+      perform_pouring();
   }
 }
 
@@ -283,7 +273,7 @@ void Error_Handler(void)
   * @retval None
   */
 void assert_failed(uint8_t *file, uint32_t line)
-{ 
+{
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
      tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
