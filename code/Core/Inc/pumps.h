@@ -19,7 +19,7 @@
 uint16_t pump_max_pwm;
 
 void pumps_init(void);
-uint8_t pumps_is_on(uint32_t channel);
-void pumps_on(uint32_t channel);
-void pumps_off(uint32_t channel);
-void pumps_toggle(uint32_t channel);
+uint8_t pumps_is_on(uint8_t channel);
+void pumps_on(uint8_t channel);
+void pumps_off(uint8_t channel);
+void pumps_toggle(uint8_t channel);

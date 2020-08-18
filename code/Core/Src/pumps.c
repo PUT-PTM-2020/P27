@@ -9,31 +9,31 @@
 
 
 void pumps_init(void) {
-  // Start TIM4 for L293D
-  HAL_TIM_PWM_Start(&PUMPS_TIMER, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&PUMPS_TIMER, TIM_CHANNEL_2);
-
-  pump_max_pwm = __HAL_TIM_GET_AUTORELOAD(&PUMPS_TIMER);
-
-  pumps_off(PUMP_1);
-  pumps_off(PUMP_2);
+  pumps_off(1);
+  pumps_off(2);
 }
 
 
-uint8_t pumps_is_on(uint32_t channel) {
-  return __HAL_TIM_GET_COMPARE(&PUMPS_TIMER, channel) > 0 ? 1 : 0;
+uint8_t pumps_is_on(uint8_t channel) {
+  return channel == 1
+      ? HAL_GPIO_ReadPin(PWM1_GPIO_Port, PWM1_Pin)
+      : HAL_GPIO_ReadPin(PWM2_GPIO_Port, PWM2_Pin);
 }
 
-void pumps_on(uint32_t channel) {
-  __HAL_TIM_SET_COMPARE(&PUMPS_TIMER, channel, pump_max_pwm);
+void pumps_on(uint8_t channel) {
+  channel == 1
+      ? HAL_GPIO_WritePin(PWM1_GPIO_Port, PWM1_Pin, GPIO_PIN_SET)
+      : HAL_GPIO_WritePin(PWM2_GPIO_Port, PWM2_Pin, GPIO_PIN_SET);
 }
 
-void pumps_off(uint32_t channel) {
-  __HAL_TIM_SET_COMPARE(&PUMPS_TIMER, channel, 0);
+void pumps_off(uint8_t channel) {
+  channel == 1
+      ? HAL_GPIO_WritePin(PWM1_GPIO_Port, PWM1_Pin, GPIO_PIN_RESET)
+      : HAL_GPIO_WritePin(PWM2_GPIO_Port, PWM2_Pin, GPIO_PIN_RESET);
 }
 
-void pumps_toggle(uint32_t channel) {
-  if(__HAL_TIM_GET_COMPARE(&PUMPS_TIMER, channel) > 0)
+void pumps_toggle(uint8_t channel) {
+  if(pumps_is_on(channel) > 0)
     pumps_off(channel);
   else
     pumps_on(channel);

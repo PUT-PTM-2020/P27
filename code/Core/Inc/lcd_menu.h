@@ -13,6 +13,7 @@
 #include "tim.h"
 #include <shared.h>
 #include "pumps.h"
+#include "servo.h"
 #include "ST7735S_dev_config.h"
 #include <stdio.h>
 
@@ -20,6 +21,8 @@ typedef enum {
   MENU_STATE_OK,
   MENU_STATE_ERROR,
   MENU_STATE_LIQUIDS,
+  MENU_STATE_SERVO,
+  MENU_STATE_DEBUG,
   MENU_STATE_MEASUREMENT,
   MENU_STATE_CONFIRM_MEASUREMENT,
   MENU_STATE_POURING
@@ -54,6 +57,8 @@ menu_t menu3;
   menu_t menu3_1;
   menu_t menu3_2;
   menu_t menu3_3;
+  menu_t menu3_4;
+  menu_t menu3_5;
 
 uint8_t menu_index;
 uint8_t lcd_row_pos;
@@ -99,6 +104,8 @@ void menu_screen_debug(void);
 void menu_update_debug(void);
 void menu_toggle_pump_1(void);
 void menu_toggle_pump_2(void);
+void menu_set_servo(void);
+void menu_get_distance(void);
 
 void update_encoder_direction(void);
 void encoder_handle_click(void);

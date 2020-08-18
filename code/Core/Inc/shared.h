@@ -15,6 +15,11 @@
 uint8_t liquid1;
 uint8_t liquid2;
 
+uint16_t liquid1_distance;
+uint16_t liquid2_distance;
+
+uint8_t pour_wait_time;
+
 volatile uint16_t distance_milimeters;
 
 // Cup height measurements
@@ -27,10 +32,11 @@ volatile uint16_t min_distance_angle;
 volatile uint16_t max_pouring_height;
 volatile uint16_t pour_percentage;
 
-#define MAX_LAST_MEASUREMENTS 10
+#define MAX_LAST_MEASUREMENTS 5
 volatile uint8_t last_measurements_index;
 volatile uint8_t last_measurements_filled;
 volatile uint16_t last_measurements[MAX_LAST_MEASUREMENTS];
+volatile uint16_t average_distance;
 
 void liquid_add_percent(uint8_t *liquid, int8_t value);
 

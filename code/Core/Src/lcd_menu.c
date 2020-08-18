@@ -16,9 +16,11 @@ menu_t menu2 = { "Opcje", &menu3, &menu1, &menu2_1, NULL, NULL };
     menu_t menu2_2_2 = { "Ciecz 1", &menu2_2_3, &menu2_2_1, NULL, &menu2_2, menu_set_liquid_1 };
     menu_t menu2_2_3 = { "Ciecz 2", NULL, &menu2_2_2, NULL, &menu2_2, menu_set_liquid_2 };
 menu_t menu3 = { "Debug", NULL, &menu2, &menu3_1, NULL, menu_screen_debug };
-  menu_t menu3_1 = { "..", &menu3_2, &menu3_3, NULL, &menu3, menu_back };
+  menu_t menu3_1 = { "..", &menu3_2, &menu3_5, NULL, &menu3, menu_back };
   menu_t menu3_2 = { "Pompa 1", &menu3_3, &menu3_1, NULL, &menu3, menu_toggle_pump_1 };
-  menu_t menu3_3 = { "Pompa 2", NULL, &menu3_2, NULL, &menu3, menu_toggle_pump_2 };
+  menu_t menu3_3 = { "Pompa 2", &menu3_4, &menu3_2, NULL, &menu3, menu_toggle_pump_2 };
+  menu_t menu3_4 = { "Serwo", &menu3_5, &menu3_3, NULL, &menu3, menu_set_servo };
+  menu_t menu3_5 = { "Czujnik", NULL, &menu3_4, NULL, &menu3, menu_get_distance };
 
 menu_t *currentPointer = &menu1;
 uint8_t *currentLiquid = NULL;
@@ -81,12 +83,17 @@ void menu_display_confirm_measurement(void) {
 }
 
 void menu_display_pouring(void) {
-  char pour_percentage_string[5];
-  sprintf(pour_percentage_string, "%dmm", pour_percentage);
+  char text[13];
 
   LCD_DisplayString( 5, (lcd_height - menu_item_height) / 2, "Nalewanie", & Font12, BLACK, WHITE);
-  LCD_DisplayString( lcd_width / 2 - Font12.Width * 2, lcd_height - menu_item_height - menu_item_padding, pour_percentage_string, & Font12, BLACK, WHITE);
-  LCD_DisplayString( lcd_width / 2 - Font12.Width * 2, lcd_height - (menu_item_height + menu_item_padding) * 2, "> STOP", & Font12, BLACK, WHITE);
+
+  sprintf(text, "Ciecz %d", pumps_is_on(1) ? 1 : 2);
+  LCD_DisplayString( 5, (lcd_height - menu_item_height) / 2 +  menu_item_height + menu_item_padding, text, & Font12, BLACK, WHITE);
+
+  sprintf(text, "Pomiar %dmm  ", average_distance);
+  LCD_DisplayString( 5, (lcd_height - menu_item_height) / 2 + (menu_item_height + menu_item_padding) * 2, text, & Font12, BLACK, WHITE);
+
+  LCD_DisplayString( lcd_width / 2 - Font12.Width * 2, lcd_height - menu_item_height - menu_item_padding, "> STOP", & Font12, BLACK, WHITE);
 }
 
 void menu_next(void) {
@@ -286,39 +293,63 @@ void menu_set_liquid_1(void) {
   currentLiquid = &liquid1;
 }
 
+void menu_set_servo(void) {
+  menu_state = MENU_STATE_SERVO;
+}
+
+void menu_get_distance(void) {
+  menu_update_debug();
+}
+
 void menu_set_liquid_2(void) {
   menu_state = MENU_STATE_LIQUIDS;
   currentLiquid = &liquid2;
 }
 
 void menu_screen_debug(void) {
+  menu_state = MENU_STATE_DEBUG;
   menu_enter();
   menu_update_debug();
 }
 
 void menu_update_debug(void) {
   uint8_t position_x = lcd_width - 4 * Font12.Width;
+  char percent[6];
 
   LCD_DisplayString(
       position_x,
       menu_item_padding * 2 + menu_item_height,
-      pumps_is_on(PUMP_1) ? "ON " : "OFF",
+      pumps_is_on(1) ? "ON " : "OFF",
       & Font12, BLACK, WHITE);
 
   LCD_DisplayString(
       position_x,
       menu_item_padding * 3 + menu_item_height * 2,
-      pumps_is_on(PUMP_2) ? "ON " : "OFF",
+      pumps_is_on(2) ? "ON " : "OFF",
+      & Font12, BLACK, WHITE);
+
+  sprintf(percent, "%d*  ", current_servo_angle / 10);
+  LCD_DisplayString(
+      position_x,
+      menu_item_padding * 4 + menu_item_height * 3,
+      percent,
+      & Font12, BLACK, WHITE);
+
+  sprintf(percent, "%d   ", distance_milimeters);
+  LCD_DisplayString(
+      position_x,
+      menu_item_padding * 5 + menu_item_height * 4,
+      percent,
       & Font12, BLACK, WHITE);
 }
 
 void menu_toggle_pump_1(void) {
-  pumps_toggle(PUMP_1);
+  pumps_toggle(1);
   menu_update_debug();
 }
 
 void menu_toggle_pump_2(void) {
-  pumps_toggle(PUMP_2);
+  pumps_toggle(2);
   menu_update_debug();
 }
 
@@ -341,22 +372,29 @@ void update_encoder_direction(void) {
 }
 
 void encoder_handle_click(void) {
-  switch(menu_state) {
-    case MENU_STATE_OK:
-      if(currentPointer->menu_function)
-        currentPointer->menu_function();
-      else menu_enter();
-      break;
-    case MENU_STATE_POURING:
-      stop_pouring();
-      break;
-    case MENU_STATE_ERROR:
-      menu_go_home();
-      break;
-    case MENU_STATE_LIQUIDS:
-      menu_state = MENU_STATE_OK;
-      currentLiquid = NULL;
-      break;
+
+  if(menu_state == MENU_STATE_OK || menu_state == MENU_STATE_DEBUG) {
+    if(currentPointer->menu_function)
+      currentPointer->menu_function();
+    else menu_enter();
+  }
+
+  else if(menu_state == MENU_STATE_POURING) {
+    stop_pouring();
+  }
+
+  else if(menu_state == MENU_STATE_ERROR) {
+    menu_go_home();
+  }
+
+  else if(menu_state == MENU_STATE_LIQUIDS) {
+    menu_state = MENU_STATE_OK;
+    currentLiquid = NULL;
+  }
+
+  else if(menu_state == MENU_STATE_SERVO) {
+    menu_state = MENU_STATE_DEBUG;
+    servo_set_angle(0, 0);
   }
 }
 
@@ -364,7 +402,7 @@ void encoder_handle_rotate(void) {
   if(encoder_direction == ENCODER_STOP)
     return;
 
-  if(menu_state == MENU_STATE_OK) {
+  if(menu_state == MENU_STATE_OK || menu_state == MENU_STATE_DEBUG) {
     if(encoder_direction == ENCODER_LEFT)
       menu_prev();
     else if(encoder_direction == ENCODER_RIGHT)
@@ -386,4 +424,11 @@ void encoder_handle_rotate(void) {
     menu_update_proportion();
   }
 
+  else if(menu_state == MENU_STATE_SERVO) {
+    if(encoder_direction == ENCODER_LEFT)
+      servo_set_angle(current_servo_angle == 0 ? current_servo_angle : current_servo_angle - 10, 0);
+    else if(encoder_direction == ENCODER_RIGHT)
+      servo_set_angle(current_servo_angle == 900 ? current_servo_angle : current_servo_angle + 10, 0);
+    menu_update_debug();
+  }
 }
