@@ -111,6 +111,12 @@ Większość wymiarów jest sparametryzowana i można dowolnie zmieniać rozmiar
 
 
 
+## Aplikacja do komunikacji poprzez UART
+
+...
+
+
+
 ## Autorzy
 
 - Tymon Jakubowski - @tjakubowski
